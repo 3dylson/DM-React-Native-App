@@ -21,6 +21,5 @@ jobs:
       - uses: expo/expo-github-action@v5
         with:
           expo-version: 4.x
-      - run: yarn install
-      - run: yarn test
-      - run: expo build:web
+      - run: npm install -g expo-cli
+      - run: npm start
