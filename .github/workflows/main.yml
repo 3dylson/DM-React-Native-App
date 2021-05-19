@@ -32,6 +32,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - uses: expo/expo-github-action@v5
+        with:
+          expo-version: 4.x
       - run: npm ci
-      - run: npm start
+      - run: yarn install
+      - run: yarn test
+      - run: expo build:web
 
