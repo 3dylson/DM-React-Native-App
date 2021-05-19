@@ -22,4 +22,4 @@ jobs:
         with:
           expo-version: 4.x
       - run: npm install -g expo-cli
-      - run: npm start
+      - run: expo start
