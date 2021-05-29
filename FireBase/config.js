@@ -3,7 +3,7 @@ const firebase=require('firebase/app').default
 import '@firebase/auth';
 import '@firebase/firestore'
 
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyDL2Cqu5mVT2srMSL-MBGGROgJYOHYaAaY",
     authDomain: "trabdm-b8659.firebaseapp.com",
     projectId: "trabdm-b8659",
