@@ -1,94 +1,84 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import 'react-native-gesture-handler';
+import React, { useEffect, useState } from 'react'
+import {Button, TouchableOpacity, Text} from "react-native"
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { LoginScreen, HomeScreen, SignInScreen } from './screens'
+import {decode, encode} from 'base-64'
+import { firebase } from './firebase/config'
 
-import logo from './assets/logo.png';
+ if (!global.btoa) {  global.btoa = encode }
+ if (!global.atob) { global.atob = decode }
+
+const Stack = createStackNavigator();
 
 export default function App() {
-  const [selectedImage, setSelectedImage] = React.useState(null);
 
-  let openImagePickerAsync = async () => {
-    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(null)
+  /*
+  if (loading) {	
+    return (	
+      <></>	
+    )	
+  }*/
 
-    if (permissionResult.granted === false) {
-      alert("Permission to access camera roll is required!");
-      return;
-    }
-
-    let pickerResult = await ImagePicker.launchImageLibraryAsync();
-
-    if (pickerResult.cancelled === true) {
-      return;
-    }
-
-    setSelectedImage({ localUri: pickerResult.uri });
-  };
-
+  useEffect(() => {
+    const usersRef = firebase.firestore().collection('users');
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        usersRef
+          .doc(user.uid)
+          .get()
+          .then((document) => {
+            const userData = document.data()
+            setLoading(false)
+            setUser(userData)
+          })
+          .catch((error) => {
+            setLoading(false)
+          });
+      } else {
+        setLoading(false)
+      }
+    });
+  }, []);
   
-
-  if (selectedImage !== null) {
-    return (
-      <View style={styles.container}>
-        <Image
-          source={{ uri: selectedImage.localUri }}
-          style={styles.thumbnail}
-        />
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Upload the photo</Text>
-        </TouchableOpacity>
-      </View>
-    );
+  const signOut = () => {
+    firebase
+    .auth()
+    .signOut()
+    .then(() => { 
+      setUser(null);
+      console.info('Logged out');
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
 
   return (
-    <View style={styles.container}>
-      <Image source={logo} style={styles.logo} /> 
-      
-      <Text style={styles.instructions}>
-        To share a photo from your phone with a friend, just press the button below!
-      </Text>
-      
-      <TouchableOpacity
-        onPress={openImagePickerAsync}
-        style={styles.button}>
-        <Text style={styles.buttonText}>Pick a photo</Text>
-      </TouchableOpacity>
-
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        { user ? (
+          <Stack.Screen name="Home" 
+            options={{          
+              headerRight: () => (
+              <Text style={{ marginRight: 30 }} onPress={() => signOut()}>
+                Logout
+              </Text>              
+            ),
+        }}>
+            {props => <HomeScreen {...props} extraData={user} />}
+          </Stack.Screen>
+        ) : (
+          <>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="SignIn" component={SignInScreen} />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logo: {
-    width: 305,
-    height: 159,
-    marginBottom: 10,
-  },
-  instructions: {
-    color: '#888',
-    fontSize: 18,
-    marginHorizontal: 15,
-  }, 
-  button: {
-    backgroundColor: "blue",
-    padding: 20,
-    borderRadius: 5,
-  },
-  buttonText: {
-    fontSize: 20,
-    color: '#fff',
-  }, 
-  thumbnail: {
-    width: 300,
-    height: 300,
-    resizeMode: "contain"
-  }
-});
