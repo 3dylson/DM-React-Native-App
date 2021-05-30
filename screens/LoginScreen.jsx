@@ -1,43 +1,33 @@
 import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { firebase } from '../../firebase/config'
-import styles from './styles';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
+import { firebase } from '../firebase/config'
+import styles from '../styles/loginStyle';
 
 export default function LoginScreen({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const onFooterLinkPress = () => {
-        navigation.navigate('Registration')
+        navigation.navigate('SignIn')
     }
 
     const onLoginPress = () => {
         firebase
             .auth()
-            // https://firebase.google.com/docs/reference/js/firebase.auth.Auth#signinwithemailandpassword
-            // Signs in using email and password 
             .signInWithEmailAndPassword(email, password)
-            // Returns UserCredential
-            // https://firebase.google.com/docs/reference/js/firebase.auth#usercredential
             .then((resp) => {
                 const uid = resp.user.uid
-                // FIRESTORE - Persistent server side
-                // firebase.firestore() return a Firestore object
-                // collection(path) - returns a CollectionReference associated to path
                 const usersRef = firebase.firestore().collection('users')
                 usersRef
-                    .doc(uid)   // Gets the Document Reference associated to uid
-                    // https://firebase.google.com/docs/reference/js/firebase.firestore.DocumentReference?hl=pt-br#get
-                    .get()      // Read de document associated to the Document Reference
-                    .then(firestoreDocument => { // Returns a Promise with a parameter of type DocumentSnapshot
-                        // https://firebase.google.com/docs/reference/js/firebase.firestore.DocumentSnapshot?hl=pt-br
+                    .doc(uid)   
+                    .get()      
+                    .then(firestoreDocument => {
                         if (!firestoreDocument.exists) {    
                             alert("User document does not exist.")
                             return;
                         }
-                        // https://firebase.google.com/docs/reference/js/firebase.firestore.DocumentSnapshot?hl=pt-br#data
-                        const user = firestoreDocument.data() // Retrieves all fields in the document as an Object. Returns 'undefined' if the document doesn't exist.
+                        const user = firestoreDocument.data()
                         navigation.navigate('Home', {user})
                     })
                     .catch(error => {
@@ -61,7 +51,7 @@ export default function LoginScreen({navigation}) {
                 keyboardShouldPersistTaps="always">
                 <Image
                     style={styles.logo}
-                    source={require('../../../assets/icon.png')}
+                    source={require('../assets/logo.png')}
                 />
                 <TextInput
                     style={styles.input}
