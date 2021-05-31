@@ -5,13 +5,14 @@ import '@firebase/firestore'
 
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: "API_KEY",
-  authDomain: "PROJECT_ID.firebaseapp.com",
-  projectId: "PROJECT_ID",
-  storageBucket: "PROJECT_ID.appspot.com",
-  messagingSenderId: "SENDER_ID",
-  appId: "APP_ID",
-  measurementId: "G-MEASUREMENT_ID",
+  apiKey: "AIzaSyDL2Cqu5mVT2srMSL-MBGGROgJYOHYaAaY",
+  authDomain: "trabdm-b8659.firebaseapp.com",
+  projectId: "trabdm-b8659",
+  storageBucket: "trabdm-b8659.appspot.com",
+  messagingSenderId: "241670815634",
+  appId: "1:241670815634:web:661ab98581fbb1f04f8b4b",
+  measurementId: "G-QBK26YP269"
+};
 };
 
 
