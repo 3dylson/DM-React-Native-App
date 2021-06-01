@@ -5,18 +5,20 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { LoginScreen, HomeScreen, SignInScreen, ChatScreen, CheckOutScreen, MyOrdersScreen } from './screens'
+import { LoginScreen, HomeScreen, SignInScreen, ChatScreen, CheckOutScreen, MyOrdersScreen, ProfileScreen } from './screens'
 import {decode, encode} from 'base-64'
 import { firebase } from './firebase/config'
 
  if (!global.btoa) {  global.btoa = encode }
  if (!global.atob) { global.atob = decode }
-
+ 
+ 
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const HomeStack = createStackNavigator();
+const ProfileStack = createStackNavigator();
 
-const Stack = createStackNavigator();
 
 export default function App() {
 
@@ -65,6 +67,17 @@ export default function App() {
 
   // TODO Create stack for each(necessary) screen
 
+  
+
+function ProfileStackScreen() {
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+      {/* Aqui vai os restantes componentes/screens como o Password Edit */}
+    </ProfileStack.Navigator>
+  );
+}
+
 
 function HomeStackScreen() {
   return (
@@ -90,6 +103,7 @@ function HomeStackScreen() {
        { user ? (
           <Tab.Navigator>
               <Tab.Screen name ="Home" component={HomeStackScreen}/>
+              <Tab.Screen name ="Me" component={ProfileStackScreen}/>
               {/* Aqui vai as restantes screens para bottom nav */}
           </Tab.Navigator>
         ) : (
