@@ -13,17 +13,15 @@ import { firebase } from './firebase/config'
  if (!global.atob) { global.atob = decode }
  
  
-const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
 
-const HomeStack = createStackNavigator();
-const ProfileStack = createStackNavigator();
+ const Stack = createStackNavigator();
 
+ export default function App() {
+  
+    const [loading, setLoading] = useState(true)
+    const [user, setUser] = useState(null)
+  
 
-export default function App() {
-
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null)
   /*
   if (loading) {	
     return (	
@@ -65,74 +63,30 @@ export default function App() {
     });
   }
 
-  // TODO Create stack for each(necessary) screen
 
-  
-
-function ProfileStackScreen() {
   return (
-    <ProfileStack.Navigator>
-      <ProfileStack.Screen name="Profile" component={ProfileScreen} />
-      {/* Aqui vai os restantes componentes/screens como o Password Edit */}
-    </ProfileStack.Navigator>
-  );
-}
-
-
-function HomeStackScreen() {
-  return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen name="Home" options={{          
+    <NavigationContainer>
+      <Stack.Navigator>
+        { user ? (
+          <Stack.Screen name="Home" 
+            options={{          
               headerRight: () => (
               <Text style={{ marginRight: 30 }} onPress={() => signOut()}>
                 Logout
               </Text>              
             ),
         }}>
-          {props => <HomeScreen {...props} extraData={user} />}
-          </HomeStack.Screen> 
-
-      {/* Aqui vai os restantes componentes/screens como posts e comentario */}
-
-    </HomeStack.Navigator>
-  );
-}
-
-  return (
-    <NavigationContainer>
-       { user ? (
-          <Tab.Navigator 
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
-  
-              if (route.name === 'Home') {
-                iconName = focused
-                  ? 'ios-home'
-                  : 'ios-home-outline';
-              } else if (route.name === 'Me') {
-                iconName = focused ? 'ios-person' : 'ios-person-outline';
-              }
-              //else if Outras tabs aqui
-              return <Ionicons name={iconName} size={size} color={color} />;
-            },
-          })}
-          tabBarOptions={{
-            activeTintColor: 'tomato',
-            inactiveTintColor: 'gray',
-          }}>
-              <Tab.Screen name ="Home" component={HomeStackScreen}/>
-              <Tab.Screen name ="Me" component={ProfileStackScreen}/>
-              {/* Aqui vai as restantes screens para bottom nav */}
-          </Tab.Navigator>
+            {props => <HomeScreen {...props} extraData={user} />}
+          </Stack.Screen>
         ) : (
-          // Caso user não tiver feito login:
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="SignIn" component={SignInScreen} />
           </>
         )}
+      </Stack.Navigator>
     </NavigationContainer>
+
   );
 }
 
