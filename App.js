@@ -101,7 +101,26 @@ function HomeStackScreen() {
   return (
     <NavigationContainer>
        { user ? (
-          <Tab.Navigator>
+          <Tab.Navigator 
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+  
+              if (route.name === 'Home') {
+                iconName = focused
+                  ? 'ios-home'
+                  : 'ios-home-outline';
+              } else if (route.name === 'Me') {
+                iconName = focused ? 'ios-person' : 'ios-person-outline';
+              }
+              //else if Outras tabs aqui
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+          })}
+          tabBarOptions={{
+            activeTintColor: 'tomato',
+            inactiveTintColor: 'gray',
+          }}>
               <Tab.Screen name ="Home" component={HomeStackScreen}/>
               <Tab.Screen name ="Me" component={ProfileStackScreen}/>
               {/* Aqui vai as restantes screens para bottom nav */}
