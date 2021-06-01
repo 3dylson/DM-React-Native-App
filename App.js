@@ -63,6 +63,8 @@ export default function App() {
     });
   }
 
+  // TODO Create stack for each(necessary) screen
+
 
 function HomeStackScreen() {
   return (
