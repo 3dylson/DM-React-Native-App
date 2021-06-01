@@ -3,12 +3,18 @@ import React, { useEffect, useState } from 'react'
 import {Button, TouchableOpacity, Text} from "react-native"
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeScreen, SignInScreen } from './screens'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { LoginScreen, HomeScreen, SignInScreen, ChatScreen, CheckOutScreen, MyOrdersScreen } from './screens'
 import {decode, encode} from 'base-64'
 import { firebase } from './firebase/config'
 
  if (!global.btoa) {  global.btoa = encode }
  if (!global.atob) { global.atob = decode }
+
+const Tab = createBottomTabNavigator();
+
+const HomeStack = createStackNavigator();
 
 const Stack = createStackNavigator();
 
@@ -57,27 +63,40 @@ export default function App() {
     });
   }
 
+
+function HomeStackScreen() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        { user ? (
-          <Stack.Screen name="Home" 
-            options={{          
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Home" options={{          
               headerRight: () => (
               <Text style={{ marginRight: 30 }} onPress={() => signOut()}>
                 Logout
               </Text>              
             ),
         }}>
-            {props => <HomeScreen {...props} extraData={user} />}
-          </Stack.Screen>
+          {props => <HomeScreen {...props} extraData={user} />}
+          </HomeStack.Screen> 
+
+      {/* Aqui vai os restantes componentes/screens como posts e comentario */}
+
+    </HomeStack.Navigator>
+  );
+}
+
+  return (
+    <NavigationContainer>
+       { user ? (
+          <Tab.Navigator>
+              <Tab.Screen name ="Home" component={HomeStackScreen}/>
+              {/* Aqui vai as restantes screens para bottom nav */}
+          </Tab.Navigator>
         ) : (
+          // Caso user não tiver feito login:
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="SignIn" component={SignInScreen} />
           </>
         )}
-      </Stack.Navigator>
     </NavigationContainer>
   );
 }

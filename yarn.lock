@@ -1175,12 +1175,12 @@
     "@firebase/util" "1.1.0"
     "tslib" "^2.1.0"
 
-"@firebase/app-types@0.6.2", "@firebase/app-types@0.x":
+"@firebase/app-types@0.6.2":
   "integrity" "sha512-2VXvq/K+n8XMdM4L2xy5bYp2ZXMawJXluUIDzUBvMthVR+lhxK4pfFiqr1mmDbv9ydXvEAuFsD+6DpcZuJcSSw=="
   "resolved" "https://registry.npmjs.org/@firebase/app-types/-/app-types-0.6.2.tgz"
   "version" "0.6.2"
 
-"@firebase/app@0.6.22", "@firebase/app@0.x":
+"@firebase/app@0.6.22":
   "integrity" "sha512-9E0KP7Z+LpBOx/oQauLYvf3XleYpbfoi058wStADUtP+eOX5GIImAFNDTOO4ZNuJfLgyrHpKi7Cct6mDdxrz+g=="
   "resolved" "https://registry.npmjs.org/@firebase/app/-/app-0.6.22.tgz"
   "version" "0.6.22"
@@ -1370,7 +1370,7 @@
     "@firebase/util" "1.1.0"
     "tslib" "^2.1.0"
 
-"@firebase/util@1.1.0", "@firebase/util@1.x":
+"@firebase/util@1.1.0":
   "integrity" "sha512-lfuSASuPKNdfebuFR8rjFamMQUPH9iiZHcKS755Rkm/5gRT0qC7BMhCh3ZkHf7NVbplzIc/GhmX2jM+igDRCag=="
   "resolved" "https://registry.npmjs.org/@firebase/util/-/util-1.1.0.tgz"
   "version" "1.1.0"
@@ -1957,10 +1957,18 @@
     "sudo-prompt" "^9.0.0"
     "wcwidth" "^1.0.1"
 
-"@react-native-community/masked-view@>= 0.1.0", "@react-native-community/masked-view@0.1.10":
+"@react-native-community/masked-view@0.1.10":
   "integrity" "sha512-rk4sWFsmtOw8oyx8SD3KSvawwaK7gRBSEIy2TAwURyGt+3TizssXP1r8nx3zY+R7v2vYYHXZ+k2/GULAT/bcaQ=="
   "resolved" "https://registry.npmjs.org/@react-native-community/masked-view/-/masked-view-0.1.10.tgz"
   "version" "0.1.10"
+
+"@react-navigation/bottom-tabs@^5.11.11":
+  "integrity" "sha512-hThj6Vfw+ITzAVj5TgLEoxkVEcBD+gYeieWOe6FryBRgokgKNCzFQzqArJ5UCmNMxklNH0rstJfcdyHflLuPtw=="
+  "resolved" "https://registry.npmjs.org/@react-navigation/bottom-tabs/-/bottom-tabs-5.11.11.tgz"
+  "version" "5.11.11"
+  dependencies:
+    "color" "^3.1.3"
+    "react-native-iphone-x-helper" "^1.3.0"
 
 "@react-navigation/core@^5.15.3":
   "integrity" "sha512-3ZdyDInh8qg1kygCNkmh9lFgpDf29lTvPsaMe2mm/qvmxLKSgttWBz07P2fc181aV9jTdgQpzYfWZ5KWT036zw=="
@@ -2429,10 +2437,22 @@
   "resolved" "https://registry.npmjs.org/base64-js/-/base64-js-1.5.1.tgz"
   "version" "1.5.1"
 
+"bcrypt-react-native@^1.1.1":
+  "integrity" "sha512-te5hqMgS+8w4N5EMih0cWIUgfNeFP0mFWynf6Vmrxo1gUa2zv7hYNUbLyztd0xYuN3vW3qHG1maEUa8FOA42lw=="
+  "resolved" "https://registry.npmjs.org/bcrypt-react-native/-/bcrypt-react-native-1.1.1.tgz"
+  "version" "1.1.1"
+
 "big-integer@^1.6.44":
   "integrity" "sha512-j51egjPa7/i+RdiRuJbPdJ2FIUYYPhvYLjzoYbcMMm62ooO6F94fETG4MTs46zPAF9Brs04OajboA/qTGuz78w=="
   "resolved" "https://registry.npmjs.org/big-integer/-/big-integer-1.6.48.tgz"
   "version" "1.6.48"
+
+"bindings@^1.5.0":
+  "integrity" "sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ=="
+  "resolved" "https://registry.npmjs.org/bindings/-/bindings-1.5.0.tgz"
+  "version" "1.5.0"
+  dependencies:
+    "file-uri-to-path" "1.0.0"
 
 "blueimp-md5@^2.10.0":
   "integrity" "sha512-vE52okJvzsVWhcgUHOv+69OG3Mdg151xyn41aVQN/5W5S+S43qZhxECtYLAEHMSFWX6Mv5IZrzj3T5+JqXfj5Q=="
@@ -3532,6 +3552,11 @@
   "resolved" "https://registry.npmjs.org/file-type/-/file-type-9.0.0.tgz"
   "version" "9.0.0"
 
+"file-uri-to-path@1.0.0":
+  "integrity" "sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw=="
+  "resolved" "https://registry.npmjs.org/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz"
+  "version" "1.0.0"
+
 "fill-range@^4.0.0":
   "integrity" "sha1-1USBHUKPmOsGpj3EAtJAPDKMOPc="
   "resolved" "https://registry.npmjs.org/fill-range/-/fill-range-4.0.0.tgz"
@@ -3687,6 +3712,14 @@
   "integrity" "sha1-FQStJSMVjKpA20onh8sBQRmU6k8="
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
+
+"fsevents@^1.2.7":
+  "integrity" "sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-1.2.13.tgz"
+  "version" "1.2.13"
+  dependencies:
+    "bindings" "^1.5.0"
+    "nan" "^2.12.1"
 
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
@@ -5001,6 +5034,11 @@
   "resolved" "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.7.tgz"
   "version" "0.0.7"
 
+"nan@^2.12.1":
+  "integrity" "sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ=="
+  "resolved" "https://registry.npmjs.org/nan/-/nan-2.14.2.tgz"
+  "version" "2.14.2"
+
 "nanoid@^3.1.15":
   "integrity" "sha512-FiB0kzdP0FFVGDKlRLEQ1BgDzU87dy5NnzjeW9YZNt+/c3+q82EQDUwniSAUxp/F0gFNI1ZhKU1FqYsMuqZVnw=="
   "resolved" "https://registry.npmjs.org/nanoid/-/nanoid-3.1.23.tgz"
@@ -5636,7 +5674,7 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   "version" "17.0.2"
 
-"react-native-gesture-handler@*", "react-native-gesture-handler@>= 1.0.0", "react-native-gesture-handler@~1.10.2":
+"react-native-gesture-handler@~1.10.2":
   "integrity" "sha512-cBGMi1IEsIVMgoox4RvMx7V2r6bNKw0uR1Mu1o7NbuHS6BRSVLq0dP34l2ecnPlC+jpWd3le6Yg1nrdCjby2Mw=="
   "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-1.10.3.tgz"
   "version" "1.10.3"
@@ -5692,7 +5730,7 @@
     "prop-types" "^15.6.0"
     "react-timer-mixin" "^0.13.4"
 
-"react-native@*", "react-native@>=0.25.1", "react-native@>=0.42.0", "react-native@>=0.57", "react-native@https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz":
+"react-native@*", "react-native@>=0.42.0", "react-native@https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz":
   "integrity" "sha512-3jHI2YufrJi7eIABRf/DN/I2yOkmIZ0vAyezTz+PAUJiEs4v//5LLojWEU+W53AZsnuaEMcl/4fVy4bd+OuUbA=="
   "resolved" "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz"
   dependencies:
@@ -5734,7 +5772,7 @@
   "resolved" "https://registry.npmjs.org/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz"
   "version" "0.13.4"
 
-"react@*", "react@^16.0", "react@>=0.14.5", "react@16.13.1":
+"react@*", "react@16.13.1":
   "integrity" "sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.13.1.tgz"
   "version" "16.13.1"
