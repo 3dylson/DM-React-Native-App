@@ -2,13 +2,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { HomeScreen, ProfileScreen } from '../screens';
+import { HomeScreen, LoginScreen, ProfileScreen, SignInScreen } from '../screens';
 
 const BottomTab = createBottomTabNavigator();
 
 export default function NavTab(props) {
-    
+    const{user} = props.route.params;
     return(
+        
         <BottomTab.Navigator
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
@@ -28,7 +29,7 @@ export default function NavTab(props) {
             },
           })}
             tabBarOptions={{
-                activeTintColor: 'tomato',
+                activeTintColor: 'steelblue',
                 inactiveTintColor: 'gray',
           }}>
               <Tab.Screen name ="Home" component={HomeStackScreen}/>
@@ -41,6 +42,21 @@ export default function NavTab(props) {
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
+const AuthStack = createStackNavigator();
+
+function AuthStackScreen(logged) {
+    return(
+        <AuthStack.Navigator
+        initialRouteName={logged ? "App" : "SignIn"}
+        headerMode="none"
+        >
+        <AuthStack.Screen name="Login" component={LoginScreen}/>
+        <AuthStack.Screen name="SignIn" component={SignInScreen}/>
+        <AuthStack.Screen name="App" component={NavTab}/>
+        </AuthStack.Navigator>
+    );
+}
+
 const HomeStack = createStackNavigator();
 
 function HomeStackScreen() {
