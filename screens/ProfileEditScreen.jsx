@@ -9,7 +9,7 @@ export default function ProfileEditScreen({navigation}) {
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [confirmNewPassword, setConfirmNewPassword] = useState('')
+    const [newPassword, setNewPassword] = useState('')
 
    // const onFooterLinkPress = () => {
     //   navigation.navigate('Login')
@@ -93,7 +93,7 @@ export default function ProfileEditScreen({navigation}) {
                     secureTextEntry
                     placeholder='Password'
                     onChangeText={(text) => setNewPassword(text)}
-                    value={password}
+                    value={newPassword}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                         />
