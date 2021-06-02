@@ -1,15 +1,10 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react'
-import {Button, TouchableOpacity, Text, StatusBar} from "react-native"
+import {StatusBar} from "react-native"
 import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { LoginScreen, HomeScreen, SignInScreen, ChatScreen, CheckOutScreen, MyOrdersScreen, ProfileScreen } from './screens'
 import {decode, encode} from 'base-64'
 import { firebase } from './firebase/config'
 import AuthStackScreen from './navigation/BottomTabNavigator';
-import { render } from 'react-dom';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
  if (!global.btoa) {  global.btoa = encode }
