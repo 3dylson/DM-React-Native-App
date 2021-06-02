@@ -88,7 +88,7 @@ export default function RegistrationScreen({navigation}) {
             
                 <RNPickerSelect
                     //onValueChange={(value) => console.log('lol')}
-                    placeholder={styles.select}
+                    //placeholder={styles.select}
                     style={styles.select}
                     onValueChange={(value) => setCompany(value)}
                     items={[
