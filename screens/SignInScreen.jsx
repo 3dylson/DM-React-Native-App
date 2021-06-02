@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import RNPickerSelect from "react-native-picker-select";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 import { firebase } from '../firebase/config'
 import styles from '../styles/signInStyle';
@@ -7,7 +8,7 @@ import styles from '../styles/signInStyle';
 export default function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
     const [contact, setContact] = useState('')
-    // const [company, setCompany] = useState('')
+    const [company, setCompany] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -39,7 +40,7 @@ export default function RegistrationScreen({navigation}) {
                     .doc(uid)   // Gets the document reference associated to uid
                     .set(data)  // Add/Create data to the document reference
                     .then(() => {   // Set return a promise without parameter's
-                        navigation.navigate('Home', {user: data})
+                        navigation.navigate('App', {user: data})
                     })
                     .catch((error) => {
                         alert(error)
@@ -85,15 +86,22 @@ export default function RegistrationScreen({navigation}) {
                     autoCapitalize="none"
                 />
             
-                <TextInput
-                   /**  style={styles.input}             //ver com checkbox
-                    placeholder='Company' 
-                    placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setCompany(text)}
-                    value={company}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none" */
-                /> 
+                <RNPickerSelect
+                    //onValueChange={(value) => console.log('lol')}
+                    //placeholder={styles.select}
+                    style={styles.select}
+                    onValueChange={(value) => setCompany(value)}
+                    items={[
+                        { label: "JavaScript", value: "JavaScript" },
+                        { label: "TypeStript", value: "TypeStript" },
+                        { label: "Python", value: "Python" },
+                        { label: "Java", value: "Java" },
+                        { label: "C++", value: "C++" },
+                        { label: "C", value: "C" },
+                    ]}
+                />
+                
+
                 <TextInput
                     style={styles.input}
                     placeholder='E-mail'
