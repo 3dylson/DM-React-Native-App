@@ -87,10 +87,10 @@ export default function RegistrationScreen({navigation}) {
                 />
             
                 <RNPickerSelect
-                    //onValueChange={(value) => console.log('lol')}
                     //placeholder={styles.select}
-                    style={styles.select}
+                    placeholder={{}}
                     onValueChange={(value) => setCompany(value)}
+                    style={styles.select}
                     items={[
                         { label: "JavaScript", value: "JavaScript" },
                         { label: "TypeStript", value: "TypeStript" },
