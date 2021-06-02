@@ -9,55 +9,42 @@ export default function ProfileEditScreen({navigation}) {
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-   // const [confirmNewPassword, setConfirmNewPassword] = useState('')
+    const [confirmNewPassword, setConfirmNewPassword] = useState('')
 
    // const onFooterLinkPress = () => {
     //   navigation.navigate('Login')
     //}
-   
-    const onUpdateNamePress = () => {
-
-        const update = {
-            fullName: fullName
-          }; 
-
-        firebase
-            .auth()
-            .currentUser
-            .updateProfile(update)
-            .then((resp) => {
-                if(resp.additionalUserInfo.currentUser) alert('User updated');
-                const uid = resp.user.uid
-                const data = {
-                    id: uid,
-                    email,
-                    fullName,
-                };
-                const usersRef = firebase.firestore().collection('users')
-                usersRef
-                    .doc(uid)   // Gets the document reference associated to uid
-                    .set(data)  // Add/Create data to the document reference
-                    .then(() => {   // Set return a promise without parameter's
-                        navigation.navigate('Home', {user: data})
-                    })
-                    .catch((error) => {
-                        alert(error)
-                    });
-            })
-            .catch((error) => {
-                let errorCode =  error.code;
-                let errorMessage = error.message;
-                // https://firebase.google.com/docs/reference/js/firebase.auth.Auth#createuserwithemailandpassword
-                if(error.code=='auth/operation-not-allowed') alert('Registry with email and password is not enabled');
-                if(error.code=='auth/weak-password') alert('Password is too weak');
-                if(error.code=='auth/invalid-email') alert('Invalid email');
-                if(error.code=='auth/email-already-in-use') alert('Email already in use');
+    const onUpdatePress = () => {
+        var user = firebase.auth().currentUser;
+        if(password.trim()||confirmPassword.trim()){
+        try {
+            if(password == confirmPassword) {
+                user.updatePassword(password).then(function() {
+                  // Update successful.
+                }).catch(function(error) {
+                  // An error happened.
+                });
+            alert("Passwords match.")
+        }}catch(error){
+            alert('Passwords dont match');
                 
-        });
-    }
-    const onUpdateEmailPress = () => {}
+        }} else{
+            alert('Must confirm new password')
+        } 
+        if(fullName.trim()){
+        user.updateProfile({
+            fullName:fullName
+        }).then(function() {
+          }).catch(function(error) {
+            // An error happened.
+          });}
+          if(fullName.trim()){
+          user.updateEmail(email).then(function() {
+            // Update successful.
+          }).catch(function(error) {
+            // An error happened.
+          });}}
 
-    const onUpdatePasswordPress = () => {}
 
     return (
         <View style={styles.container}>
@@ -68,8 +55,6 @@ export default function ProfileEditScreen({navigation}) {
                     style={styles.logo}
                     source={require('../assets/logo.png')}
                 />
-                <View style={styles.textButtonContainer}>
-                    <View style={{width: '80%'}}>
                         <TextInput
                             style={styles.input}
                             //placeholder= {firebase.currentUser.fullName}
@@ -79,19 +64,8 @@ export default function ProfileEditScreen({navigation}) {
                             underlineColorAndroid="transparent"
                             autoCapitalize="none"
                         />
-                    </View> 
-                    <View style={{width: '20%'}}>
-                        
-                        <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => onRegisterPress()}
-                        >
-                        <Text style={styles.buttonTitle}>Submit</Text>
-                    </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={styles.textButtonContainer}>
-                    <View style={{width: '80%'}}>
+                   
+               
                         <TextInput
                     style={styles.input}
                     placeholder='E-mail'
@@ -101,19 +75,7 @@ export default function ProfileEditScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                         />
-                    </View> 
-                    <View style={{width: '20%'}}>
-                        
-                        <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => onRegisterPress()}
-                        >
-                        <Text style={styles.buttonTitle}>Submit</Text>
-                    </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={styles.textButtonContainer}>
-                    <View style={{width: '80%'}}>
+                    
                         <TextInput
                     style={styles.input}
                     placeholderTextColor="#aaaaaa"
@@ -124,17 +86,26 @@ export default function ProfileEditScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                         />
-                    </View> 
-                    <View style={{width: '20%'}}>
+                    
+                        <TextInput
+                    style={styles.input}
+                    placeholderTextColor="#aaaaaa"
+                    secureTextEntry
+                    placeholder='Password'
+                    onChangeText={(text) => setNewPassword(text)}
+                    value={password}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                        />
+                
                         
                         <TouchableOpacity
                         style={styles.button}
                         onPress={() => onRegisterPress()}
                         >
-                        <Text style={styles.buttonTitle}>Submit</Text>
+                        <Text style={styles.buttonTitle}>Submit changes</Text>
                     </TouchableOpacity>
-                    </View>
-                </View>
+                    
 
             
             </KeyboardAwareScrollView>
