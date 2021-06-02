@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react'
-import {Button, TouchableOpacity, Text} from "react-native"
+import {Button, TouchableOpacity, Text, StatusBar} from "react-native"
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -8,18 +8,19 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LoginScreen, HomeScreen, SignInScreen, ChatScreen, CheckOutScreen, MyOrdersScreen, ProfileScreen } from './screens'
 import {decode, encode} from 'base-64'
 import { firebase } from './firebase/config'
+import AuthStackScreen from './navigation/BottomTabNavigator';
+import { render } from 'react-dom';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
  if (!global.btoa) {  global.btoa = encode }
  if (!global.atob) { global.atob = decode }
  
- 
-
- const Stack = createStackNavigator();
 
  export default function App() {
   
     const [loading, setLoading] = useState(true)
     const [user, setUser] = useState(null)
+    //const AuthContext = React.createContext(user);
   
 
   /*
@@ -63,30 +64,16 @@ import { firebase } from './firebase/config'
     });
   }
 
-
+  
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        { user ? (
-          <Stack.Screen name="Home" 
-            options={{          
-              headerRight: () => (
-              <Text style={{ marginRight: 30 }} onPress={() => signOut()}>
-                Logout
-              </Text>              
-            ),
-        }}>
-            {props => <HomeScreen {...props} extraData={user} />}
-          </Stack.Screen>
-        ) : (
-          <>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="SignIn" component={SignInScreen} />
-          </>
-        )}
-      </Stack.Navigator>
+    <SafeAreaProvider>
+    <NavigationContainer style={{flex: 1}}>
+      {AuthStackScreen(user)}
     </NavigationContainer>
+    <StatusBar/>
+    </SafeAreaProvider>
 
   );
-}
 
+  }
+ 

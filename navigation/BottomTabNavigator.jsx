@@ -6,10 +6,31 @@ import { HomeScreen, LoginScreen, ProfileScreen, SignInScreen } from '../screens
 
 const BottomTab = createBottomTabNavigator();
 
-export default function NavTab(props) {
-    const{user} = props.route.params;
+// Each tab has its own navigation stack, you can read more about this pattern here:
+// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
+
+const AuthStack = createStackNavigator();
+
+export default function AuthStackScreen(logged) {
     return(
-        
+        <AuthStack.Navigator
+        initialRouteName={
+            logged ? "App" : "Login"
+        }
+        headerMode="none"
+        >
+            <AuthStack.Screen name="Login" component={LoginScreen}/>
+            <AuthStack.Screen name="SignIn" component={SignInScreen}/>
+            <AuthStack.Screen name="App" component={NavTab}/>
+        </AuthStack.Navigator>        
+    );
+}
+
+function NavTab() {
+    //const{user} = props.route.params;
+    
+    return(
+        // <AuthContext.Provider value={user}>
         <BottomTab.Navigator
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
@@ -32,30 +53,15 @@ export default function NavTab(props) {
                 activeTintColor: 'steelblue',
                 inactiveTintColor: 'gray',
           }}>
-              <Tab.Screen name ="Home" component={HomeStackScreen}/>
-              <Tab.Screen name ="Profile" component={ProfileStackScreen}/>
+              <BottomTab.Screen name ="Home" component={HomeStackScreen}/>
+              <BottomTab.Screen name ="Profile" component={ProfileStackScreen}/>
               {/* Aqui vai as restantes screens para bottom nav */}
               </BottomTab.Navigator>
+              //</AuthContext.Provider>
     
     );
 }
 
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const AuthStack = createStackNavigator();
-
-function AuthStackScreen(logged) {
-    return(
-        <AuthStack.Navigator
-        initialRouteName={logged ? "App" : "SignIn"}
-        headerMode="none"
-        >
-        <AuthStack.Screen name="Login" component={LoginScreen}/>
-        <AuthStack.Screen name="SignIn" component={SignInScreen}/>
-        <AuthStack.Screen name="App" component={NavTab}/>
-        </AuthStack.Navigator>
-    );
-}
 
 const HomeStack = createStackNavigator();
 
