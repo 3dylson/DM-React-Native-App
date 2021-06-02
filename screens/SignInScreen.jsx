@@ -7,7 +7,7 @@ import styles from '../styles/signInStyle';
 export default function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
     const [contact, setContact] = useState('')
-    const [company, setCompany] = useState('')
+    // const [company, setCompany] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -86,8 +86,8 @@ export default function RegistrationScreen({navigation}) {
                 />
             
                 <TextInput
-                   /**  style={styles.input}
-                    placeholder='Company'
+                   /**  style={styles.input}             //ver com checkbox
+                    placeholder='Company' 
                     placeholderTextColor="#aaaaaa"
                     onChangeText={(text) => setCompany(text)}
                     value={company}
