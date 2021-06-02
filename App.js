@@ -8,13 +8,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LoginScreen, HomeScreen, SignInScreen, ChatScreen, CheckOutScreen, MyOrdersScreen, ProfileScreen } from './screens'
 import {decode, encode} from 'base-64'
 import { firebase } from './firebase/config'
+import AuthStackScreen from './navigation/BottomTabNavigator';
+import { render } from 'react-dom';
 
  if (!global.btoa) {  global.btoa = encode }
  if (!global.atob) { global.atob = decode }
  
- 
-
- const Stack = createStackNavigator();
 
  export default function App() {
   
@@ -63,30 +62,13 @@ import { firebase } from './firebase/config'
     });
   }
 
-
+  
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        { user ? (
-          <Stack.Screen name="Home" 
-            options={{          
-              headerRight: () => (
-              <Text style={{ marginRight: 30 }} onPress={() => signOut()}>
-                Logout
-              </Text>              
-            ),
-        }}>
-            {props => <HomeScreen {...props} extraData={user} />}
-          </Stack.Screen>
-        ) : (
-          <>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="SignIn" component={SignInScreen} />
-          </>
-        )}
-      </Stack.Navigator>
+    <NavigationContainer style={{flex: 1}}>
+      {AuthStackScreen(user)}
     </NavigationContainer>
 
   );
-}
 
+  }
+ 
