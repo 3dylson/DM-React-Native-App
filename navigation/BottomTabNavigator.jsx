@@ -14,21 +14,23 @@ const AuthStack = createStackNavigator();
 export default function AuthStackScreen(logged) {
     return(
         <AuthStack.Navigator
-        initialRouteName={logged ? "App" : "Login"}
+        initialRouteName={
+            logged ? "App" : "Login"
+        }
         headerMode="none"
         >
-        <AuthStack.Screen name="Login" component={LoginScreen}/>
-        <AuthStack.Screen name="SignIn" component={SignInScreen}/>
-        <AuthStack.Screen name="App" component={NavTab}/>
-        </AuthStack.Navigator>
+            <AuthStack.Screen name="Login" component={LoginScreen}/>
+            <AuthStack.Screen name="SignIn" component={SignInScreen}/>
+            <AuthStack.Screen name="App" component={NavTab}/>
+        </AuthStack.Navigator>        
     );
 }
 
-function NavTab(props) {
-    const{user} = props.route.params;
-    const AuthContext = React.createContext(user);
+function NavTab() {
+    //const{user} = props.route.params;
+    
     return(
-        <AuthContext.Provider value={user}>
+        // <AuthContext.Provider value={user}>
         <BottomTab.Navigator
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
@@ -55,7 +57,7 @@ function NavTab(props) {
               <BottomTab.Screen name ="Profile" component={ProfileStackScreen}/>
               {/* Aqui vai as restantes screens para bottom nav */}
               </BottomTab.Navigator>
-              </AuthContext.Provider>
+              //</AuthContext.Provider>
     
     );
 }
@@ -63,7 +65,7 @@ function NavTab(props) {
 
 const HomeStack = createStackNavigator();
 
-function HomeStackScreen(props) {
+function HomeStackScreen() {
     return(
         <HomeStack.Navigator>
             <HomeStack.Screen

@@ -9,28 +9,28 @@ export default function HomeScreen(props) {
     const [entities, setEntities] = useState([]);
     const [entityToUpdate, setEntityToUpdate] = useState(null);
 
-    const entityRef = firebase.firestore().collection('entities')
-    const userID = props.extraData.id
+    //const entityRef = firebase.firestore().collection('entities')
+    //const userID = props.extraData.id
 
-    useEffect(() => {
-        entityRef
-            .where("authorID", "==", userID)
-            .orderBy('createdAt', 'desc')
-            .onSnapshot(
-                querySnapshot => {
-                    const newEntities = []
-                    querySnapshot.forEach(doc => {                        
-                        const entity = doc.data() // Entity record, try alert(entity.text)
-                        entity.id = doc.id
-                        newEntities.push(entity)    // Update the state
-                    });
-                    setEntities(newEntities)
-                },
-                error => {
-                    console.log(error)
-                }
-            )
-    }, [])
+    // useEffect(() => {
+    //     entityRef
+    //         .where("authorID", "==", userID)
+    //         .orderBy('createdAt', 'desc')
+    //         .onSnapshot(
+    //             querySnapshot => {
+    //                 const newEntities = []
+    //                 querySnapshot.forEach(doc => {                        
+    //                     const entity = doc.data() // Entity record, try alert(entity.text)
+    //                     entity.id = doc.id
+    //                     newEntities.push(entity)    // Update the state
+    //                 });
+    //                 setEntities(newEntities)
+    //             },
+    //             error => {
+    //                 console.log(error)
+    //             }
+    //         )
+    // }, [])
 
     const onAddButtonPress = () => {
         if (entityText && entityText.length > 0) {
@@ -106,7 +106,7 @@ export default function HomeScreen(props) {
     return (
         <View style={styles.container}>
             <View style={styles.formContainer}>
-            {entityToUpdate && 
+            {/* {entityToUpdate && 
                     <TouchableOpacity style={[styles.buttonCancel, { marginRight:10 }]} onPress={() => cancelUpdate()}>
                         <Text style={styles.buttonText}>Cancel</Text>
                     </TouchableOpacity>
@@ -135,7 +135,8 @@ export default function HomeScreen(props) {
                         removeClippedSubviews={true}
                     />
                 </View>
-            )}
+            )} */}
+        </View>
         </View>
     )
 }

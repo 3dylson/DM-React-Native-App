@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react'
-import {Button, TouchableOpacity, Text} from "react-native"
+import {Button, TouchableOpacity, Text, StatusBar} from "react-native"
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,6 +10,7 @@ import {decode, encode} from 'base-64'
 import { firebase } from './firebase/config'
 import AuthStackScreen from './navigation/BottomTabNavigator';
 import { render } from 'react-dom';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
  if (!global.btoa) {  global.btoa = encode }
  if (!global.atob) { global.atob = decode }
@@ -19,6 +20,7 @@ import { render } from 'react-dom';
   
     const [loading, setLoading] = useState(true)
     const [user, setUser] = useState(null)
+    //const AuthContext = React.createContext(user);
   
 
   /*
@@ -64,9 +66,12 @@ import { render } from 'react-dom';
 
   
   return (
+    <SafeAreaProvider>
     <NavigationContainer style={{flex: 1}}>
       {AuthStackScreen(user)}
     </NavigationContainer>
+    <StatusBar/>
+    </SafeAreaProvider>
 
   );
 
