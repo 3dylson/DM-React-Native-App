@@ -28,7 +28,8 @@ export default function LoginScreen({navigation}) {
                             return;
                         }
                         const user = firestoreDocument.data()
-                        navigation.navigate('App', {user})
+                        //navigation.navigate('App', {user})
+                        navigation.replace('App',{user})
                     })
                     .catch(error => {
                         alert(error)
