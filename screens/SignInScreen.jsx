@@ -40,7 +40,7 @@ export default function RegistrationScreen({navigation}) {
                     .doc(uid)   // Gets the document reference associated to uid
                     .set(data)  // Add/Create data to the document reference
                     .then(() => {   // Set return a promise without parameter's
-                        navigation.navigate('Home', {user: data})
+                        navigation.navigate('App', {user: data})
                     })
                     .catch((error) => {
                         alert(error)
