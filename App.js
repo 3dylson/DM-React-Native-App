@@ -3,19 +3,25 @@ import React, { useEffect, useState } from 'react'
 import {Button, TouchableOpacity, Text} from "react-native"
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeScreen, SignInScreen } from './screens'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { LoginScreen, HomeScreen, SignInScreen, ChatScreen, CheckOutScreen, MyOrdersScreen, ProfileScreen } from './screens'
 import {decode, encode} from 'base-64'
 import { firebase } from './firebase/config'
 
  if (!global.btoa) {  global.btoa = encode }
  if (!global.atob) { global.atob = decode }
+ 
+ 
 
-const Stack = createStackNavigator();
+ const Stack = createStackNavigator();
 
-export default function App() {
+ export default function App() {
+  
+    const [loading, setLoading] = useState(true)
+    const [user, setUser] = useState(null)
+  
 
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null)
   /*
   if (loading) {	
     return (	
@@ -57,6 +63,7 @@ export default function App() {
     });
   }
 
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -79,6 +86,7 @@ export default function App() {
         )}
       </Stack.Navigator>
     </NavigationContainer>
+
   );
 }
 

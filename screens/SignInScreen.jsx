@@ -6,6 +6,8 @@ import styles from '../styles/signInStyle';
 
 export default function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
+    const [contact, setContact] = useState('')
+    // const [company, setCompany] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -27,6 +29,8 @@ export default function RegistrationScreen({navigation}) {
                 const uid = resp.user.uid
                 const data = {
                     id: uid,
+                    contact,
+                   // company,
                     email,
                     fullName,
                 };
@@ -71,6 +75,25 @@ export default function RegistrationScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
+                <TextInput
+                    style={styles.input}
+                    placeholder='Contact'
+                    placeholderTextColor="#aaaaaa"
+                    onChangeText={(text) => setContact(text)}
+                    value={contact}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
+            
+                <TextInput
+                   /**  style={styles.input}             //ver com checkbox
+                    placeholder='Company' 
+                    placeholderTextColor="#aaaaaa"
+                    onChangeText={(text) => setCompany(text)}
+                    value={company}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none" */
+                /> 
                 <TextInput
                     style={styles.input}
                     placeholder='E-mail'
