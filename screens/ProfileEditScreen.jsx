@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 import { firebase } from '../firebase/config'
-import styles from '../styles/editProfileStyle'; 
+import styles from '../styles/signInStyle';
 //import BcryptReactNative from 'bcrypt-react-native';
 
 export default function ProfileEditScreen({navigation}) {
@@ -16,21 +16,25 @@ export default function ProfileEditScreen({navigation}) {
     //}
     const onUpdatePress = () => {
         var user = firebase.auth().currentUser;
-        if(password.trim()||confirmPassword.trim()){
-        try {
-            if(password == confirmPassword) {
+        if(password.trim()&&newPassword.trim()){
+        //try {
+            if(password == newPassword) {
                 user.updatePassword(password).then(function() {
+                alert("Passwords match.")
                   // Update successful.
                 }).catch(function(error) {
-                  // An error happened.
-                });
-            alert("Passwords match.")
-        }}catch(error){
-            alert('Passwords dont match');
+                  throw new Error ("error")
+                });}
+            else {
+                alert('Passwords dont match');
+            }
+        //}}catch(error){
+           // alert('Passwords dont match');
                 
-        }} else{
-            alert('Must confirm new password')
-        } 
+        } else if (password.trim()&& !newPassword.trim()){
+                alert('Must confirm new password')
+            }
+
         if(fullName.trim()){
         user.updateProfile({
             fullName:fullName
@@ -57,7 +61,7 @@ export default function ProfileEditScreen({navigation}) {
                 />
                         <TextInput
                             style={styles.input}
-                            //placeholder= {firebase.currentUser.fullName}
+                            placeholder= 'fullname'
                             placeholderTextColor="#aaaaaa"
                             onChangeText={(text) => setFullName(text)}
                             value={fullName}
@@ -80,7 +84,7 @@ export default function ProfileEditScreen({navigation}) {
                     style={styles.input}
                     placeholderTextColor="#aaaaaa"
                     secureTextEntry
-                    placeholder='Password'
+                    placeholder='New password'
                     onChangeText={(text) => setPassword(text)}
                     value={password}
                     underlineColorAndroid="transparent"
@@ -91,7 +95,7 @@ export default function ProfileEditScreen({navigation}) {
                     style={styles.input}
                     placeholderTextColor="#aaaaaa"
                     secureTextEntry
-                    placeholder='Password'
+                    placeholder='Confirm New password'
                     onChangeText={(text) => setNewPassword(text)}
                     value={newPassword}
                     underlineColorAndroid="transparent"
@@ -101,7 +105,7 @@ export default function ProfileEditScreen({navigation}) {
                         
                         <TouchableOpacity
                         style={styles.button}
-                        onPress={() => onRegisterPress()}
+                        onPress={() => onUpdatePress()}
                         >
                         <Text style={styles.buttonTitle}>Submit changes</Text>
                     </TouchableOpacity>
@@ -109,6 +113,6 @@ export default function ProfileEditScreen({navigation}) {
 
             
             </KeyboardAwareScrollView>
-        </View>
+        </View> 
     )
 }
