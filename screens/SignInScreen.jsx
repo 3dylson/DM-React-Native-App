@@ -97,7 +97,7 @@ export default function RegistrationScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-            
+
                 <RNPickerSelect
                     //placeholder={styles.select}
                     placeholder={{}}
@@ -109,11 +109,10 @@ export default function RegistrationScreen({navigation}) {
                         { label: "Python", value: "Python" },
                         { label: "Java", value: "Java" },
                         { label: "C++", value: "C++" },
-                        { label: "C", value: "C" },
+                            { label: "C", value: "C" },
                     ]}
                 />
-                
-
+               
                 <TextInput
                     style={styles.input}
                     placeholder='E-mail'
