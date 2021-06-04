@@ -1,8 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
+//import * as React from 'react';
+import React, { useEffect, useState } from "react";
+import { firebase } from '../firebase/config'
 import { HomeScreen, LoginScreen, ProfileScreen, SignInScreen } from '../screens';
+import { AuthContext } from '../firebase/context'
 
 const BottomTab = createBottomTabNavigator();
 
@@ -26,11 +29,38 @@ export default function AuthStackScreen(logged) {
     );
 }
 
-function NavTab() {
-    //const{user} = props.route.params;
+function NavTab(props) {
+    const [loading, setLoading] = useState(true)
+    const [user, setUser] = useState(props.route.params.user);
+    const [currentContext, setCurrentContext] = useState({
+    user: user
+  });
+
+   useEffect(() => {
+     const usersRef = firebase.firestore().collection('users');
+     firebase.auth().onAuthStateChanged(user => {
+       if (user) {
+         usersRef
+           .doc(user.uid)
+           .get()
+           .then((document) => {
+            const userData = document.data()
+             setLoading(false)
+             setUser(userData)
+             setCurrentContext(userData)
+           })
+           .catch((error) => {
+            setLoading(false)
+           });
+       } else {
+        setLoading(false)
+       }
+     });
+   }, []);
+
     
     return(
-        // <AuthContext.Provider value={user}>
+         <AuthContext.Provider value={currentContext}>
         <BottomTab.Navigator
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
@@ -81,18 +111,32 @@ function HomeStackScreen() {
 const ProfileStack = createStackNavigator();
 
 function ProfileStackScreen() {
+
+   const signOut = () => {
+     firebase
+     .auth()
+     .signOut()
+     .then(() => { 
+       setUser(null);
+       console.info('Logged out');
+     })
+     .catch((error) => {
+       console.error(error);
+     });
+   }
+
     return(
         <ProfileStack.Navigator>
             <ProfileStack.Screen
                 name="Profile"
                 component={ProfileScreen}
                 options={{
-                    headerTitle: 'My account'
-                    // headerRight:() => (
-                    //     <Text style={{ marginRight: 30 }} onPress={() => signOut()}>
-                    //         Logout
-                    //     </Text> 
-                    // ) 
+                    headerTitle: 'My account',
+                     headerRight:() => (
+                         <Text style={{ marginRight: 30 }} onPress={() => signOut()}>
+                             Logout
+                         </Text> 
+                     ) 
                 }}
             />
         </ProfileStack.Navigator>
