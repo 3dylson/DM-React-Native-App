@@ -9,7 +9,7 @@ export default function PassEditProfile({navigation}) {
     const [currentPassword, setCurrentPassword] = useState('')
 
     const onFooterLinkPress = () => {
-        navigation.navigate('Home')
+        navigation.navigate('App')
     }
 //const encrypt= (password) =>{
 
