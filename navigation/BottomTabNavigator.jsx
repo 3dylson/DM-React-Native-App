@@ -37,7 +37,7 @@ function NavTab(props) {
   });
 
    useEffect(() => {
-     const usersRef = firebase.firestore().collection('users');
+     const usersRef = firebase.firestore().collection('users').doc(user);
      firebase.auth().onAuthStateChanged(user => {
        if (user) {
          usersRef
@@ -110,7 +110,8 @@ function HomeStackScreen() {
 
 const ProfileStack = createStackNavigator();
 
-function ProfileStackScreen() {
+function ProfileStackScreen(props) {
+    const [user, setUser] = useState(props.route.params.user);
 
    const signOut = () => {
      firebase

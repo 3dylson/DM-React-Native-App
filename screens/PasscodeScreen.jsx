@@ -5,7 +5,7 @@ import { firebase } from '../firebase/config'
 import styles from '../styles/loginStyle'
 import SMSVerifyCode from 'react-native-sms-verifycode'
 
-export default function PasswordScreen({navigation}) {
+export default function PasscodeScreen({navigation}) {
     const [code, setCode] = useState('')
 
     return (
