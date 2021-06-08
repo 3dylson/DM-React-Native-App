@@ -37,11 +37,11 @@ function NavTab(props) {
   });
 
    useEffect(() => {
-     const usersRef = firebase.firestore().collection('users').doc(user);
+     const usersRef = firebase.firestore().collection('users').doc(user.uid);
      firebase.auth().onAuthStateChanged(user => {
        if (user) {
          usersRef
-           .doc(user.uid)
+           //.doc(user.uid)
            .get()
            .then((document) => {
             const userData = document.data()
