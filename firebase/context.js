@@ -13,7 +13,8 @@ import * as React from 'react'
 //   );
 
 export const user = {
-    isLogged: false
+    isLogged: false,
+    email: "Guest"
 };
 
 export const AuthContext = React.createContext({
