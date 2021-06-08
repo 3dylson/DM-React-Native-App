@@ -24,19 +24,18 @@ export default class ProfileScreen extends Component {
     }
 
     fetchUserInfo = (userId) => {
-        // const usersRef = firebase.firestore().collection('users');
 
-        //Get fullName from firebase db
         const userDoc = firebase.firestore().collection('users').doc(userId)
         
+        //Get fullName from firebase db
         userDoc.get()
         .then(firestoreDocument => {
             if (!firestoreDocument.exists) {    
                 alert("User does not exist.")
                 return;
             }
-            this.setState({name: 
-            })
+            this.setState({ name: firestoreDocument.data().name })
+
         })
         
 

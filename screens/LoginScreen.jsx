@@ -4,12 +4,12 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 import { firebase } from '../firebase/config'
 import styles from '../styles/loginStyle';
 
-class LoginScreen extends React.Component() {
+class LoginScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
-            password: ""
+            email: '',
+            password: ''
         }
     }
     //const [email, setEmail] = useState('')
