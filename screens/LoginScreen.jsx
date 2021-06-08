@@ -1,18 +1,27 @@
-import React, { useState } from 'react'
+import React, { Component } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 import { firebase } from '../firebase/config'
 import styles from '../styles/loginStyle';
+import context  from '../firebase/context';
 
-export default function LoginScreen({navigation}) {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+export default class LoginScreen extends React.Component() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: "",
+            password: ""
+        }
+    }
+    //const [email, setEmail] = useState('')
+    //const [password, setPassword] = useState('')
 
-    const onFooterLinkPress = () => {
+    onFooterLinkPress = () => {
         navigation.navigate('SignIn')
     }
 
-    const onLoginPress = () => {
+    onLoginPress = () => {
+        const {email, password} = this.state; 
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
@@ -29,7 +38,7 @@ export default function LoginScreen({navigation}) {
                         }
                         const user = firestoreDocument.data()
                         //navigation.navigate('App', {user})
-                        navigation.replace('App',{user})
+                        this.props.navigation.navigate('App', {user})
                     })
                     .catch(error => {
                         alert(error)
@@ -44,7 +53,7 @@ export default function LoginScreen({navigation}) {
                 if (errorCode === 'auth/user-disabled') alert('User is not enabled'+errorMessage);
             })
     }
-
+    render() {
     return (
         <View style={styles.container}>
             <KeyboardAwareScrollView
@@ -58,7 +67,7 @@ export default function LoginScreen({navigation}) {
                     style={styles.input}
                     placeholder='E-mail'
                     placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setEmail(text)}
+                    onChangeText={(text) => this.setState({email: text})}
                     value={email}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
@@ -68,20 +77,20 @@ export default function LoginScreen({navigation}) {
                     placeholderTextColor="#aaaaaa"
                     secureTextEntry
                     placeholder='Password'
-                    onChangeText={(text) => setPassword(text)}
+                    onChangeText={(text) => this.setState({password: text})}
                     value={password}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => onLoginPress()}>
+                    onPress={() => this.onLoginPress()}>
                     <Text style={styles.buttonTitle}>Log in</Text>
                 </TouchableOpacity>
                 <View style={styles.footerView}>
-                    <Text style={styles.footerText}>Don't have an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Sign up</Text></Text>
+                    <Text style={styles.footerText}>Don't have an account? <Text onPress={this.onFooterLinkPress} style={styles.footerLink}>Sign up</Text></Text>
                 </View>
             </KeyboardAwareScrollView>
         </View>
     )
-}
+}}
