@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 import { firebase } from '../firebase/config'
 import styles from '../styles/loginStyle';
-import context  from '../firebase/context';
 
-export default class LoginScreen extends React.Component() {
+class LoginScreen extends React.Component() {
     constructor(props) {
         super(props);
         this.state = {
@@ -94,3 +93,4 @@ export default class LoginScreen extends React.Component() {
         </View>
     )
 }}
+export default LoginScreen
