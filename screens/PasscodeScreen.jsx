@@ -5,7 +5,7 @@ import { firebase } from '../firebase/config'
 import styles from '../styles/loginStyle'
 import SMSVerifyCode from 'react-native-sms-verifycode'
 
-export default class PasscodeScreen extends Component({navigation}) {
+export default class PasscodeScreen extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -34,7 +34,7 @@ export default class PasscodeScreen extends Component({navigation}) {
                         verifyCodeLenght={4}
                     // ref={ref => (this.verifycode = ref)}
                     // onInputCompleted()=true
-                        containerPaddingHorizontal={30}
+                       // containerPaddingHorizontal={30}
                     />
                     
     
