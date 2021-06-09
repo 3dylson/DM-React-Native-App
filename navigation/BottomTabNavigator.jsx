@@ -33,7 +33,7 @@ function NavTab(props) {
     const [loading, setLoading] = useState(true)
     const [user, setUser] = useState(props.route.params.user);
     const [currentContext, setCurrentContext] = useState({
-    user: user
+        user: user
   });
 
    useEffect(() => {
