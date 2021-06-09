@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import RNPickerSelect from "react-native-picker-select";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
@@ -34,14 +34,14 @@ export default class RegistrationScreen extends Component {
            // return
         //}
 
-        const {fullName, contact, company, email, password, confirmPassword} = this.setState;
-        if(password.trim()&&confirmPassword.trim()){
+        const {fullName, contact, company, email, password, confirmPassword} = this.state;
+        if(this.password.trim()&&this.confirmPassword.trim()){
             //try {
-                if(password == confirmPassword) {
+                if(this.password == this.confirmPassword) {
 
                     firebase
                         .auth()
-                        .createUserWithEmailAndPassword(email, password)
+                        .createUserWithEmailAndPassword(email, password)  // this?
                         .then((resp) => {
                             if(resp.additionalUserInfo.isNewUser) alert('New user');
                             const uid = resp.user.uid
@@ -58,29 +58,30 @@ export default class RegistrationScreen extends Component {
                                 .set(data)  // Add/Create data to the document reference
                                 .then(() => {   // Set return a promise without parameter's
                                     //navigation.navigate('App', {user: data})
-                                    navigation.replace('App',{user: data})
+                                    this.props.navigation.replace('App',{user: data})
                                 })
                                 .catch((error) => {
                                     alert(error)
                                 });
                         })
-                        .catch((error) => {
+                        .catch(error => {
                             let errorCode =  error.code;
                             let errorMessage = error.message;
                             // https://firebase.google.com/docs/reference/js/firebase.auth.Auth#createuserwithemailandpassword
-                            if(error.code=='auth/operation-not-allowed') alert('Registry with email and password is not enabled');
-                            if(error.code=='auth/weak-password') alert('Password is too weak');
-                            if(error.code=='auth/invalid-email') alert('Invalid email');
-                            if(error.code=='auth/email-already-in-use') alert('Email already in use');
-                            
-                    });}
+                            if(errorCode==='auth/operation-not-allowed') alert('Registry with email and password is not enabled');
+                            if(errorCode==='auth/weak-password') alert('Password is too weak');
+                            if(errorCode==='auth/invalid-email') alert('Invalid email');
+                            if(errorCode==='auth/email-already-in-use') alert('Email already in use');
+                        })
+                }
                 else {
                     alert('Passwords dont match');
                 }
                     
-            } else if (password.trim()&& !confirmPassword.trim()){
-                    alert('Must confirm new password')
-                }
+            } 
+            else if (password.trim()&& !confirmPassword.trim()){
+                alert('Must confirm new password')
+            }
     }
 
     render() {
@@ -98,7 +99,7 @@ export default class RegistrationScreen extends Component {
                         placeholder='Full Name'
                         placeholderTextColor="#aaaaaa"
                         onChangeText={(text) => this.setState({fullName: text})}
-                        value={fullName}
+                        value={this.fullName}
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
@@ -107,7 +108,7 @@ export default class RegistrationScreen extends Component {
                         placeholder='Contact'
                         placeholderTextColor="#aaaaaa"
                         onChangeText={(text) => this.setState({contact: text})}
-                        value={contact}
+                        value={this.contact}
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
@@ -132,7 +133,7 @@ export default class RegistrationScreen extends Component {
                         placeholder='E-mail'
                         placeholderTextColor="#aaaaaa"
                         onChangeText={(text) => this.setState({email:text})}
-                        value={email}
+                        value={this.email}
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
@@ -142,7 +143,7 @@ export default class RegistrationScreen extends Component {
                         secureTextEntry
                         placeholder='Password'
                         onChangeText={(text) => this.setState({password: text})}
-                        value={password}
+                        value={this.password}
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
@@ -152,7 +153,7 @@ export default class RegistrationScreen extends Component {
                         secureTextEntry
                         placeholder='Confirm Password'
                         onChangeText={(text) => this.setState({confirmPassword: text})}
-                        value={confirmPassword}
+                        value={this.confirmPassword}
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
