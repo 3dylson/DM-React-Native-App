@@ -25,7 +25,7 @@ export default class RegistrationScreen extends Component {
     //const [confirmPassword, setConfirmPassword] = useState('')
 
     onFooterLinkPress = () => {
-        navigation.navigate('Login')
+        this.props.navigation.navigate('Login')
     }
 
     onRegisterPress = () =>{
@@ -35,9 +35,9 @@ export default class RegistrationScreen extends Component {
         //}
 
         const {fullName, contact, company, email, password, confirmPassword} = this.state;
-        if(this.password.trim()&&this.confirmPassword.trim()){
+        if(this.state.password.trim()&&this.state.confirmPassword.trim()){
             //try {
-                if(this.password == this.confirmPassword) {
+                if(this.state.password == this.state.confirmPassword) {
 
                     firebase
                         .auth()
@@ -48,7 +48,7 @@ export default class RegistrationScreen extends Component {
                             const data = {
                                 id: uid,
                                 contact,
-                               // company,
+                                company,
                                 email,
                                 fullName,
                             };
@@ -58,7 +58,8 @@ export default class RegistrationScreen extends Component {
                                 .set(data)  // Add/Create data to the document reference
                                 .then(() => {   // Set return a promise without parameter's
                                     //navigation.navigate('App', {user: data})
-                                    this.props.navigation.replace('App',{user: data})
+                                    this.props.navigation.navigate('App',{user: data})
+                                    console.log('lol');
                                 })
                                 .catch((error) => {
                                     alert(error)

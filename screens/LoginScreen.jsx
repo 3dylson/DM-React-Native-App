@@ -16,7 +16,7 @@ class LoginScreen extends React.Component {
     //const [password, setPassword] = useState('')
 
     onFooterLinkPress = () => {
-        navigation.navigate('SignIn')
+        this.props.navigation.navigate('SignIn')
     }
 
     onLoginPress = () => {
