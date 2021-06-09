@@ -7,6 +7,7 @@ import { Text } from "react-native";
 import { firebase } from '../firebase/config'
 import { HomeScreen, LoginScreen, ProfileScreen, SignInScreen } from '../screens';
 import { AuthContext } from '../firebase/context'
+import PasscodeScreen from '../screens/PasscodeScreen';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -25,6 +26,7 @@ export default function AuthStackScreen(logged) {
         >
             <AuthStack.Screen name="Login" component={LoginScreen}/>
             <AuthStack.Screen name="SignIn" component={SignInScreen}/>
+            <AuthStack.Screen name="Passcode" component={PasscodeScreen}/>
             <AuthStack.Screen name="App" component={NavTab}/>
         </AuthStack.Navigator>        
     );
