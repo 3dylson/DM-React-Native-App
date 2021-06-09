@@ -15,3 +15,5 @@ export { default as MyOrdersScreen } from './MyOrdersScreen'
 export { default as ProfileScreen } from './ProfileScreen'
 
 export { default as ProfileEditScreen } from './ProfileEditScreen'
+
+export { default as PasscodeScreen } from './PasscodeScreen'
