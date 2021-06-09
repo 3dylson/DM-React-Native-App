@@ -25,7 +25,7 @@ export default class RegistrationScreen extends Component {
     //const [confirmPassword, setConfirmPassword] = useState('')
 
     onFooterLinkPress = () => {
-        navigation.navigate('Login')
+        this.props.navigation.navigate('Login')
     }
 
     onRegisterPress = () =>{
@@ -35,9 +35,9 @@ export default class RegistrationScreen extends Component {
         //}
 
         const {fullName, contact, company, email, password, confirmPassword} = this.state;
-        if(this.password.trim()&&this.confirmPassword.trim()){
+        if(this.state.password.trim()&&this.state.confirmPassword.trim()){
             //try {
-                if(this.password == this.confirmPassword) {
+                if(this.state.password == this.state.confirmPassword) {
 
                     firebase
                         .auth()
@@ -48,21 +48,22 @@ export default class RegistrationScreen extends Component {
                             const data = {
                                 id: uid,
                                 contact,
-                               // company,
+                                company,
                                 email,
                                 fullName,
-                            };
+                            }
                             const usersRef = firebase.firestore().collection('users')
                             usersRef
                                 .doc(uid)   // Gets the document reference associated to uid
                                 .set(data)  // Add/Create data to the document reference
                                 .then(() => {   // Set return a promise without parameter's
                                     //navigation.navigate('App', {user: data})
-                                    this.props.navigation.replace('App',{user: data})
+                                    this.props.navigation.navigate('App',{user: data})
                                 })
-                                .catch((error) => {
+                                .catch(error => {
                                     alert(error)
-                                });
+                                })
+    
                         })
                         .catch(error => {
                             let errorCode =  error.code;
@@ -79,7 +80,7 @@ export default class RegistrationScreen extends Component {
                 }
                     
             } 
-            else if (password.trim()&& !confirmPassword.trim()){
+            else if (this.state.password.trim()&& !this.state.confirmPassword.trim()){
                 alert('Must confirm new password')
             }
     }
@@ -99,7 +100,7 @@ export default class RegistrationScreen extends Component {
                         placeholder='Full Name'
                         placeholderTextColor="#aaaaaa"
                         onChangeText={(text) => this.setState({fullName: text})}
-                        value={this.fullName}
+                        value={this.state.fullName}
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
@@ -108,7 +109,7 @@ export default class RegistrationScreen extends Component {
                         placeholder='Contact'
                         placeholderTextColor="#aaaaaa"
                         onChangeText={(text) => this.setState({contact: text})}
-                        value={this.contact}
+                        value={this.state.contact}
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
@@ -133,7 +134,7 @@ export default class RegistrationScreen extends Component {
                         placeholder='E-mail'
                         placeholderTextColor="#aaaaaa"
                         onChangeText={(text) => this.setState({email:text})}
-                        value={this.email}
+                        value={this.state.email}
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
@@ -143,7 +144,7 @@ export default class RegistrationScreen extends Component {
                         secureTextEntry
                         placeholder='Password'
                         onChangeText={(text) => this.setState({password: text})}
-                        value={this.password}
+                        value={this.state.password}
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
@@ -153,7 +154,7 @@ export default class RegistrationScreen extends Component {
                         secureTextEntry
                         placeholder='Confirm Password'
                         onChangeText={(text) => this.setState({confirmPassword: text})}
-                        value={this.confirmPassword}
+                        value={this.state.confirmPassword}
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />

@@ -110,8 +110,8 @@ function HomeStackScreen() {
 
 const ProfileStack = createStackNavigator();
 
-function ProfileStackScreen(props) {
-    const [user, setUser] = useState(props.route.params.user);
+function ProfileStackScreen() {
+ //   const [user, setUser] = useState(props.route.params.user);
 
    const signOut = () => {
      firebase
