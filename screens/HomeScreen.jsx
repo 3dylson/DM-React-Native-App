@@ -1,13 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View, Button } from 'react-native'
 import styles from '../styles/homeStyle';
 import { firebase } from '../firebase/config'
 
-export default function HomeScreen(props) {
+export default class HomeScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            entities: '',
+            entityText:'',
+            entityToUpdate: ''
+        }
+    }
 
-    const [entityText, setEntityText] = useState('');
-    const [entities, setEntities] = useState([]);
-    const [entityToUpdate, setEntityToUpdate] = useState(null);
+    // checkParams = () => {
+    //     var params = this.props.navigation.state.params;
+    //     if (params.userId) {
+    //         this.setState({ userId: params.userId })
+    //     }
+    //     this.fetchUserInfo(params.userId)
+    // }
+
+    // const [entityText, setEntityText] = useState('');
+    // const [entities, setEntities] = useState([]);
+    // const [entityToUpdate, setEntityToUpdate] = useState(null);
 
     //const entityRef = firebase.firestore().collection('entities')
     //const userID = props.extraData.id
@@ -32,21 +48,21 @@ export default function HomeScreen(props) {
     //         )
     // }, [])
 
-    const onAddButtonPress = () => {
-        if (entityText && entityText.length > 0) {
+    onAddButtonPress = () => {
+        if (this.state.entityText && this.state.entityText.length > 0) {
             if(!entityToUpdate) {
                 // FieldValue - Sentinel values that can be used when writing document fields with set() or update().
                 // serverTimestamp() - Returns a sentinel used with set() or update() to include a server-generated timestamp in the written data.
                 const timestamp = firebase.firestore.FieldValue.serverTimestamp();
                 const data = {
-                    text: entityText,
+                    text: this.state.entityText,
                     authorID: userID,
                     createdAt: timestamp,
                 };
                 entityRef
                     .add(data)
                     .then(_doc => {
-                        setEntityText('')
+                        this.setState({entityText: ''})
                         Keyboard.dismiss()
                     })
                     .catch((error) => {
@@ -60,8 +76,8 @@ export default function HomeScreen(props) {
                     .update({ ...entityToUpdate, text: entityText })
                     .then(() => {
                         alert(id + "updated with success");
-                        setEntityText('');
-                        setEntityToUpdate(null);
+                        this.setState({entityText: ''})
+                        this.setState({entityToUpdate: null})
                     })
                     .catch((error) => {
                         alert(error);
@@ -70,7 +86,7 @@ export default function HomeScreen(props) {
         }
     }
 
-    const onDeleteButtonPress = (entity) => {        
+    onDeleteButtonPress = (entity) => {        
         const { id } = entity;
         entityRef
             .doc(id)
@@ -83,12 +99,12 @@ export default function HomeScreen(props) {
             });
     }
 
-    const renderEntity = ({item, index}) => {
+    renderEntity = ({item, index}) => {
         return (
             <View style={styles.entityContainer}>
-                <Text style={styles.entityText} onPress={() => {                    
-                    setEntityText(item.text);
-                    setEntityToUpdate(item);
+                <Text style={styles.entityText} onPress={() => {
+                    this.setState({entityText: item.text})
+                    this.setState({entityToUpdate: item})
                 }}>
                         {index}. {item.text}        
                 </Text>                
@@ -98,11 +114,11 @@ export default function HomeScreen(props) {
     }
 
 
-    const cancelUpdate = () => {
-        setEntityToUpdate(null);
-        setEntityText('');
+    cancelUpdate = () => {
+        this.setState({EntityToUpdate: null}),
+        this.setState({entityText: ''})
     }
-
+    render() {
     return (
         <View style={styles.container}>
             <View style={styles.formContainer}>
@@ -139,4 +155,4 @@ export default function HomeScreen(props) {
         </View>
         </View>
     )
-}
+}}
