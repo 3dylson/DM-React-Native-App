@@ -16,16 +16,17 @@ export default class ProfileScreen extends Component {
     }
 
     checkParams = () => {
-        const user = this.props.navigation.state.user;
-        if (user.userId) {
-            this.setState({ userId: user.userId })
+        //const user = this.props.navigation.state.params;
+        const user = firebase.auth().currentUser; // usar contextApi **
+        if (user.uid) {
+            this.setState({ userId: user.uid })
         }
-        this.fetchUserInfo(user.userId)
+        this.fetchUserInfo(user.uid)
     }
 
-    fetchUserInfo = (userId) => {
+    fetchUserInfo = (uid) => {
 
-        const userDoc = firebase.firestore().collection('users').doc(userId)
+        const userDoc = firebase.firestore().collection('users').doc(uid)
         
         //Get fullName from firebase db
         userDoc.get()

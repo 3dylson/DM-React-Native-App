@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 //import * as React from 'react';
 import React, { useEffect, useState } from "react";
+import { Text } from "react-native";
 import { firebase } from '../firebase/config'
 import { HomeScreen, LoginScreen, ProfileScreen, SignInScreen } from '../screens';
 import { AuthContext } from '../firebase/context'
@@ -87,7 +88,7 @@ function NavTab(props) {
               <BottomTab.Screen name ="Profile" component={ProfileStackScreen}/>
               {/* Aqui vai as restantes screens para bottom nav */}
               </BottomTab.Navigator>
-              //</AuthContext.Provider>
+              </AuthContext.Provider>
     
     );
 }
