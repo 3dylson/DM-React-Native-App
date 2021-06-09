@@ -43,7 +43,7 @@ export default class RegistrationScreen extends Component {
                         .auth()
                         .createUserWithEmailAndPassword(email, password)  // this?
                         .then((resp) => {
-                            if(resp.additionalUserInfo.isNewUser) alert('New user');
+                            if(resp.additionalUserInfo.isNewUser)alert('New user');
                             const uid = resp.user.uid
                             const data = {
                                 id: uid,
@@ -57,8 +57,10 @@ export default class RegistrationScreen extends Component {
                                 .doc(uid)   // Gets the document reference associated to uid
                                 .set(data)  // Add/Create data to the document reference
                                 .then(() => {   // Set return a promise without parameter's
+                                    this.props.navigation.navigate('Passcode')
                                     //navigation.navigate('App', {user: data})
-                                    this.props.navigation.navigate('App',{user: data})
+
+                                    // this.props.navigation.navigate('App',{user: data})
                                 })
                                 .catch(error => {
                                     alert(error)
