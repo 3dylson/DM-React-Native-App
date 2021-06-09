@@ -67,7 +67,7 @@ class LoginScreen extends React.Component {
                     placeholder='E-mail'
                     placeholderTextColor="#aaaaaa"
                     onChangeText={(text) => this.setState({email: text})}
-                    value={this.email}
+                    value={this.state.email}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -77,7 +77,7 @@ class LoginScreen extends React.Component {
                     secureTextEntry
                     placeholder='Password'
                     onChangeText={(text) => this.setState({password: text})}
-                    value={this.password}
+                    value={this.state.password}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />

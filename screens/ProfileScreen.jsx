@@ -16,11 +16,11 @@ export default class ProfileScreen extends Component {
     }
 
     checkParams = () => {
-        var params = this.props.navigation.state.params;
-        if (params.userId) {
-            this.setState({ userId: params.userId })
+        const user = this.props.navigation.state.user;
+        if (user.userId) {
+            this.setState({ userId: user.userId })
         }
-        this.fetchUserInfo(params.userId)
+        this.fetchUserInfo(user.userId)
     }
 
     fetchUserInfo = (userId) => {
