@@ -8,7 +8,7 @@ import {fetchUser, fetchUserOrders, clearData} from '../redux/actions/index'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import {OrdersScreen,ProfileScreen,PassEditProfile} from '../screens';
+import {OrdersScreen,ProfileScreen,PassEditProfile,ChatScreen,ManagerProfileScreen,OrderDetailsScreen} from '../screens';
 
 //import {OrdersStack, ProfileStack} from '../navigation/BottomTabNavigator'
 
@@ -16,6 +16,37 @@ import {OrdersScreen,ProfileScreen,PassEditProfile} from '../screens';
 const BottomTab = createBottomTabNavigator();
 const OrdersStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
+const CheckOutStack = createStackNavigator();
+const ChatStack = createStackNavigator();
+
+const CheckOutStackScreen = () => {
+    return(
+        <CheckOutStack.Navigator>
+          <CheckOutStack.Screen
+              name="CheckOut"
+              component={ChatScreen}
+              options={{ headerTitle: 'Chat'}}
+              /> 
+      </CheckOutStack.Navigator>
+    )
+}
+const ChatStackScreen = () => {
+    return(
+        <ChatStack.Navigator>
+          <ChatStack.Screen
+              name="Chat"
+              component={ChatScreen}
+              options={{ headerTitle: 'Chat'}}
+              />
+          <ChatStack.Screen
+              name="ManagerProfile"
+              component={ManagerProfileScreen}
+              options={{ headerTitle: 'Chat'}}
+              />
+
+      </ChatStack.Navigator>
+    )
+}
 
 const OrdersStackScreen = () => {
     return(
@@ -25,7 +56,12 @@ const OrdersStackScreen = () => {
               component={OrdersScreen}
               options={{ headerTitle: 'Orders 🛒'}}
               />
-              {/* Restantes screens dentro do orders  */}
+          <OrdersStack.Screen
+              name="DetailedOrder"
+              component={OrderDetailsScreen}
+              options={{ headerTitle: 'Details'}}
+              />
+              
       </OrdersStack.Navigator>
     )
 } 
@@ -37,25 +73,13 @@ const ProfileStackScreen = () => {
               name="Profile"
               component={ProfileScreen}
               options={{
-                  headerTitle: 'My account',
-                //    headerRight:() => (
-                //        <Text style={{ marginRight: 30 }} onPress={() => }>
-                //            Logout
-                //        </Text> 
-                //    ) 
-              }}
+                  headerTitle: 'My account'}}
           />
           <ProfileStack.Screen
               name="PassEditProfile"
               component={PassEditProfile}
               options={{
-                  headerTitle: 'Confirm your password',
-                //    headerRight:() => (
-                //        <Text style={{ marginRight: 30 }} onPress={() => }>
-                //            Logout
-                //        </Text> 
-                //    ) 
-              }}
+                  headerTitle: 'Confirm your password'}}
           />
         </ProfileStack.Navigator>)
 }
@@ -104,8 +128,8 @@ export class Main extends Component {
                 inactiveTintColor: 'gray',
           }}>
                 <BottomTab.Screen name ="Orders" component={OrdersStackScreen}/>
-                {/* <BottomTab.Screen name ="CheckOut" component={CheckOutScreen}/>
-                <BottomTab.Screen name ="Chat" component={ChatScreen}/> */}
+                <BottomTab.Screen name ="CheckOut" component={CheckOutStackScreen}/>
+                <BottomTab.Screen name ="Chat" component={ChatStackScreen}/> 
                 <BottomTab.Screen name ="Profile" component={ProfileStackScreen}/>              
               </BottomTab.Navigator>
         )

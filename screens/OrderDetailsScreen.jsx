@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View, Button } from 'react-native'
 
-export class ManagerProfileScreen extends Component {
+export class OrderDetailsScreen extends Component {
     render() {
         return (
             <View>
@@ -11,4 +11,4 @@ export class ManagerProfileScreen extends Component {
     }
 }
 
-export default ManagerProfileScreen
+export default OrderDetailsScreen
