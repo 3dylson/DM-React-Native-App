@@ -50,7 +50,29 @@ export class Register extends Component {
                 company,
             };
             const usersRef = firebase.firestore().collection('users')
+            const companyRef = firebase.firestore().collection('companies')
             usersRef.doc(uid).set(data)
+            .then(() => {
+                usersRef.doc(uid).get()
+                .then((snapshot) =>{
+                    if(snapshot.exists){
+                        const compID = snapshot.data().id
+                        const fullName = snapshot.data().fullName
+                        companyRef.doc(company).collection("companiesUsers").set({
+                            compID,
+                            fullName
+                        });
+                    }
+
+                })
+                .catch((error) => {
+                    alert(error)
+                })
+
+            })
+            .catch((error) =>{
+                alert(error)
+            })
         })
         .catch((error) => {
             let errorCode =  error.code;
@@ -101,8 +123,9 @@ export class Register extends Component {
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({company: itemValue})
                         }>
-                            <Picker.Item label="IPB" value="ipb"/>
-                            <Picker.Item label="TheMarket" value="tmarket"/>
+                            <Picker.Item label="IPB" value="IPB"/>
+                            <Picker.Item label="The Market" value="TheMarket"/>
+                            <Picker.Item label="Company A" value="CompanyA"/>
                         </Picker>
                 
                     <TextInput
