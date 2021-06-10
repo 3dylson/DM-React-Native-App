@@ -38,7 +38,7 @@ function OrdersScreen(props) {
                             <Text >{item.id}</Text>
                             
                             <Text
-                                onPress={() => props.navigation.navigate('OrderDetails', { orderId: item.id, uid: item.user.uid })}>
+                                onPress={() => props.navigation.navigate('DetailedOrder', { orderId: item.id, uid: item.user.uid })}>
                                 View Details...
                                 </Text>
                         </View>
