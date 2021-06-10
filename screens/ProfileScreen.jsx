@@ -1,154 +1,110 @@
 import React, {Component} from 'react'
-import {Text, StyleSheet, View, Image, Animated, Button} from 'react-native'
+import {Text,TouchableOpacity,ScrollView, StyleSheet, View, Image, Alert,  Animated, Button} from 'react-native'
 import { firebase } from '../firebase/config'
-import Loading from '../animations/Loading'
+import styles from '../styles/profile'
+import {connect} from 'react-redux'
 
-export default class ProfileScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loaded: false,
-            name: '',
-            company: '',
-            photo: '',
-            userId: null
-        }
+
+function ProfileScreen (props)  {
+    const {currentUser} = props;
+
+      
+    
+    const logout = () => {
+        firebase.auth().signOut();
     }
-
-    checkParams = () => {
-        //const user = this.props.navigation.state.params;
-        const user = firebase.auth().currentUser; // usar contextApi **
-        if (user.uid) {
-            this.setState({ userId: user.uid })
-        }
-        this.fetchUserInfo(user.uid)
-    }
-
-    fetchUserInfo = (uid) => {
-
-        const userDoc = firebase.firestore().collection('users').doc(uid)
-        
-        //Get fullName from firebase db
-        userDoc.get()
-        .then(firestoreDocument => {
-            if (!firestoreDocument.exists) {    
-                alert("User does not exist.")
-                return;
-            }
-            this.setState({ name: firestoreDocument.data().name })
-
-        })
-        
-
-        
-
-        // dbRef.child("users").child(userId).child('fullName').once('value')
-        // then((snapshot) => {
-        // if (snapshot.exists()) {
-        //     console.log(snapshot.val());
-        //     data = snapshot.val();
-        //     this.setState({name: data })
-        // } else {
-        //     alert("No data available")
-        //     console.log("No data available");
-        // }
-        // }).catch((error) => {
-        //     alert(error)
-        //     console.error(error);
-        // });
-
-        // //Get company 
-        // dbRef.child("users").child(userId).child('company').once('value')
-        // then((snapshot) => {
-        // if (snapshot.exists()) {
-        //     console.log(snapshot.val());
-        //     data = snapshot.val();
-        //     this.setState({company: data })
-        // } else {
-        //     alert("No data available")
-        //     console.log("No data available");
-        // }
-        // }).catch((error) => {
-        //     alert(error)
-        //     console.error(error);
-        // });
-
-        // //Get profile photo
-        // dbRef.child("users").child(userId).child('photo').once('value')
-        // then((snapshot) => {
-        // if (snapshot.exists()) {
-        //     console.log(snapshot.val());
-        //     data = snapshot.val();
-        //     this.setState({photo: data, loaded: true })
-        // } else {
-        //     alert("No data available")
-        //     console.log("No data available");
-        // }
-        // }).catch((error) => {
-        //     alert(error)
-        //     console.error(error);
-        // });
-
-    }
-
-    // componentDidMount() {
-    //     this.checkParams()
+    // if(currentUser==undefined){
+    //     return(
+    //         <Loading/>
+    //     )
     // }
-
-    render() {
            return (
-        //     <View style={{ flex: 1, padding: 5 }}>
-        //         {this.state.loaded == false ?
-        //             (
-        //                 <Loading />
-        //             )
-        //             : (
-        //                 // loggedin
-        //                 <View style={{ flex: 1 }}>
-        //                     <View style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', paddingVertical: 10, marginTop: 20 }}>
-        //                         <Image
-        //                             source={{ uri: this.state.photo }}
-        //                             style={{ marginLeft: 10, width: 100, height: 100, borderRadius: 50 }}
-        //                         />
-        //                         <View style={{ marginRight: 10 }}>
-        //                             <Text>{this.state.name}</Text>
-        //                             <Text>{this.state.company}</Text>
-        //                         </View>
-        //                     </View>
-        //                     <View>
-        //                         <TouchableOpacity style={{ marginTop: 10, marginHorizontal: 40, paddingVertical: 15, borderRadius: 20, borderColor: 'grey', borderWidth: 1.5 }}>
-        //                             <Text style={{ color: 'grey', textAlign: 'center' }}> {'Logout'} </Text>
-        //                         </TouchableOpacity>
-        //                         <TouchableOpacity style={{ marginTop: 10, marginHorizontal: 40, paddingVertical: 15, borderRadius: 20, borderColor: 'grey', borderWidth: 1.5 }}>
-        //                             <Text style={{ textAlign: 'center', color: 'grey' }}>{'Edit Profile'} </Text>
-        //                         </TouchableOpacity>
-        //                         <TouchableOpacity
-        //                             onPress={() => this.props.navigation.navigate("Upload")}
-        //                             style={{ marginTop: 10, marginHorizontal: 40, paddingVertical: 25, backgroundColor: 'grey', borderRadius: 20, borderColor: 'grey', borderWidth: 1.5 }}>
-        //                             <Text style={{ textAlign: 'center', color: '#fff' }}>{'Upload New +'} </Text>
-        //                         </TouchableOpacity>
-        //                     </View>
-        //                     {/* <View style={{ borderColor: '#555', borderWidth: 1 }} /> */}
-        //                     <View style={{ backgroundColor: 'green', flex: 1, justifyContent: 'center', alignItems: 'center', marginVertical: 5 }}>
-        //                         <Text>{"Loading Photos..."}</Text>
-        //                     </View>
-        //                 </View>
-        //             )
-        //         }
-        //     </View>
-        <View></View> 
+
+            
+      
+            <View style={styles.container}>
+            <View style={styles.logoContainer}>
+            <Image
+                    style={styles.logo}
+                    source={require('../assets/logo.png')}
+                />
+            </View>
+                <View style={styles.bodyTitleView}>
+                    <Text style={styles.bodyTitle}>Personal data</Text>
+                    </View>
+            <ScrollView style={styles.scrollView}>
+                <View style={styles.fieldsContainer}>
+                <View style={styles.lableContainer}>
+                <Text style={styles.textLable}>Full name:</Text> 
+                </View>
+                <View style={styles.textContainer}>
+                <Text style={styles.text}>{currentUser.fullName}</Text> 
+                </View>
+                </View>
+                <View style={styles.fieldsContainer}>
+                <View style={styles.lableContainer}>
+                <Text style={styles.textLable}>Email:</Text> 
+                </View>
+                <View style={styles.textContainer}>
+                <Text style={styles.email}>{currentUser.email}</Text> 
+                </View>
+                </View>
+                <View style={styles.fieldsContainer}>
+                <View style={styles.lableContainer}>
+                <Text style={styles.textLable}>Contact:</Text> 
+                </View>
+                <View style={styles.textContainer}>
+                <Text style={styles.text}>{currentUser.contact}</Text> 
+                </View>
+                </View>
+                <View style={styles.fieldsContainer}>
+                <View style={styles.lableContainer}>
+                <Text style={styles.textLable}>Company:</Text> 
+                </View>
+                <View style={styles.textContainer}>
+                <Text style={styles.text}>{currentUser.company}</Text> 
+                </View>
+                </View>
+                {/* <Animated.Text style={[styles.bodyDescription, { opacity: this.state.fadeAnim }]}>
+                    {user.Description}
+                </Animated.Text> */}
+                {/* <View style={styles.text}>
+                    { <Text style={styles.text}>{currentUser.fullName}</Text> }
+                </View>
+                <View style={styles.text}>
+                    { <Text style={styles.text}>{currentUser.company}</Text> }
+                </View> */}
+        </ScrollView>
+                <View style={styles.buttonView}>
+            <TouchableOpacity
+                    style={styles.editButton}
+                    onPress={() => props.navigation.navigate("PassEditProfile")}>
+                    <Text style={styles.buttonTitle}>edit data</Text>
+                </TouchableOpacity>
+            <TouchableOpacity
+                    onPress={() => 
+                        Alert.alert(
+                        'Logout?',
+                        'Press OK to logout',
+                      [
+                        {
+                          text: "Cancel",
+                          onPress: () => null,
+                          style: "cancel"
+                        },
+                        { text: "OK", onPress: () => logout()}
+                      ]
+                    )}
+                    style={styles.logoutButton}>
+                    <Text style={styles.buttonTitle}>logout </Text>
+                </TouchableOpacity>
+                </View>
+        </View>
         )
-    }
-}
+        }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#ddd'
-    }
-});
-
-
-
+            const mapStateToProps = (store) => ({
+            currentUser: store.userState.currentUser
+            })
+            // const mapDispatchProps = (dispatch) => bindActionCreators({fetchUser}, dispatch);
+           export default connect(mapStateToProps,null)(ProfileScreen)

@@ -3,30 +3,49 @@ import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 import { firebase } from '../firebase/config'
 import styles from '../styles/signInStyle';
+import {connect} from 'react-redux'
 //import BcryptReactNative from 'bcrypt-react-native';
 
-export default function PassEditProfile({navigation}) {
+function PassEditProfile({navigation},props) {
     const [currentPassword, setCurrentPassword] = useState('')
+    const {currentUser} = props;
 
     const onFooterLinkPress = () => {
         navigation.navigate('App')
     }
-//const encrypt= (password) =>{
-
-//const salt = BcryptReactNative.getSalt(10);
-//const hash = BcryptReactNative.hash(salt, password);
-//const pass = BcryptReactNative.compareSync(password, hash);
-//return pass;
-//}
-    
 
     const onPassPress = () => {
         
-
+   
+        firebase.auth().signInWithEmailAndPassword(email,password)
+        .then((resp) => {
+            const uid = resp.user.uid
+            const usersRef = firebase.firestore().collection('users')
+            usersRef.doc(uid).get()
+            .then(firestoreDocument => {
+                if (!firestoreDocument.exists) {    
+                    alert("User not register.")
+                    return;
+                }
+                // const user = firestoreDocument.data()
+                // Navigate
+            })
+            .catch((error) => {
+                alert(error)
+            });
+        })
+        .catch((error) => {
+            let errorCode = error.code;
+                let errorMessage = error.message;
+                if (errorCode === 'auth/invalid-email') alert('Invalid email:'+errorMessage);
+                if (errorCode === 'auth/user-not-found') alert('User not found'+errorMessage);
+                if (errorCode === 'auth/wrong-password') alert('Wrong password.'+errorMessage);
+                if (errorCode === 'auth/user-disabled') alert('User is not enabled'+errorMessage);          
+    });
         //setPassword = encrypt(password);
         if(currentPassword.trim()){
             try {
-                if(firebase.auth().currentUser.password === currentPassword) alert('Allowed');
+                if(currentUser.password === currentPassword) alert('Allowed');
                 navigation.navigate('profileEdit')
             } catch(error){
                 alert('Password incorrect');
@@ -38,7 +57,9 @@ export default function PassEditProfile({navigation}) {
 
 
     return (
+        
         <View style={styles.container}>
+            {/* <Text>{currentUser.password}</Text> */}
             <KeyboardAwareScrollView
                 style={{ flex: 1, width: '100%' }}
                 keyboardShouldPersistTaps="always">
@@ -70,3 +91,9 @@ export default function PassEditProfile({navigation}) {
         </View>
     )
 }
+
+const mapStateToProps = (store) => ({
+currentUser: store.userState.currentUser
+})
+// const mapDispatchProps = (dispatch) => bindActionCreators({fetchUser}, dispatch);
+export default connect(mapStateToProps,null)(PassEditProfile)

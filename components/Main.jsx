@@ -4,11 +4,11 @@ import { Ionicons } from '@expo/vector-icons';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Loading from '../animations/Loading'
-import {fetchUser, fetchUserOrders} from '../redux/actions/index'
+import {fetchUser, fetchUserOrders, clearData} from '../redux/actions/index'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import {OrdersScreen,ProfileScreen} from '../screens';
+import {OrdersScreen,ProfileScreen,PassEditProfile} from '../screens';
 
 //import {OrdersStack, ProfileStack} from '../navigation/BottomTabNavigator'
 
@@ -45,11 +45,24 @@ const ProfileStackScreen = () => {
                 //    ) 
               }}
           />
+          <ProfileStack.Screen
+              name="PassEditProfile"
+              component={PassEditProfile}
+              options={{
+                  headerTitle: 'Confirm your password',
+                //    headerRight:() => (
+                //        <Text style={{ marginRight: 30 }} onPress={() => }>
+                //            Logout
+                //        </Text> 
+                //    ) 
+              }}
+          />
         </ProfileStack.Navigator>)
 }
 
 export class Main extends Component {
     componentDidMount(){
+        this.props.clearData();
         this.props.fetchUser();
         this.props.fetchUserOrders();
 
@@ -102,6 +115,6 @@ export class Main extends Component {
 const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser
 })
-const mapDispatchProps = (dispatch) => bindActionCreators({fetchUser, fetchUserOrders}, dispatch);
+const mapDispatchProps = (dispatch) => bindActionCreators({fetchUser, fetchUserOrders, clearData}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchProps)(Main);
