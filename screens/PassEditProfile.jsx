@@ -6,7 +6,7 @@ import styles from '../styles/signInStyle';
 import {connect} from 'react-redux'
 //import BcryptReactNative from 'bcrypt-react-native';
 
-function PassEditProfile({navigation},props) {
+function PassEditProfile(props) {
     const [currentPassword, setCurrentPassword] = useState('')
     const {currentUser} = props;
 
@@ -17,16 +17,27 @@ function PassEditProfile({navigation},props) {
     const onPassPress = () => {
         
    
-        firebase.auth().signInWithEmailAndPassword(email,password)
+        
+        
+        //setPassword = encrypt(password);
+        if(currentPassword.trim()){
+    //         try {
+    //             // setEmail()
+    //             if(firebase.auth().signInWithEmailAndPassword(currentUser.email,currentPassword)) alert('Allowed')
+    //             props.navigation.navigate("ProfileEdit")
+    //         } catch(error){
+    //             alert('Password incorrect');
+                    
+    //         }
+    
+    firebase.auth().signInWithEmailAndPassword(currentUser.email,currentPassword)
         .then((resp) => {
             const uid = resp.user.uid
             const usersRef = firebase.firestore().collection('users')
             usersRef.doc(uid).get()
             .then(firestoreDocument => {
-                if (!firestoreDocument.exists) {    
-                    alert("User not register.")
-                    return;
-                }
+                    props.navigation.navigate("ProfileEdit")
+                
                 // const user = firestoreDocument.data()
                 // Navigate
             })
@@ -37,29 +48,17 @@ function PassEditProfile({navigation},props) {
         .catch((error) => {
             let errorCode = error.code;
                 let errorMessage = error.message;
-                if (errorCode === 'auth/invalid-email') alert('Invalid email:'+errorMessage);
-                if (errorCode === 'auth/user-not-found') alert('User not found'+errorMessage);
-                if (errorCode === 'auth/wrong-password') alert('Wrong password.'+errorMessage);
-                if (errorCode === 'auth/user-disabled') alert('User is not enabled'+errorMessage);          
+                if (errorCode === 'auth/wrong-password') alert('Wrong password.'+errorMessage);          
     });
-        //setPassword = encrypt(password);
-        if(currentPassword.trim()){
-            try {
-                if(currentUser.password === currentPassword) alert('Allowed');
-                navigation.navigate('profileEdit')
-            } catch(error){
-                alert('Password incorrect');
-                    
-            }
-    } else {
+} 
+else {
             alert('Must enter passsword')
         } }
-
 
     return (
         
         <View style={styles.container}>
-            {/* <Text>{currentUser.password}</Text> */}
+            {/* <Text>{currentUser.email}</Text> */}
             <KeyboardAwareScrollView
                 style={{ flex: 1, width: '100%' }}
                 keyboardShouldPersistTaps="always">
