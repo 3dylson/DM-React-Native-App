@@ -8,7 +8,7 @@ import {fetchUser, fetchUserOrders} from '../redux/actions/index'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import {OrdersScreen,ProfileScreen} from '../screens';
+import {OrdersScreen,ProfileScreen,PassEditProfile} from '../screens';
 
 //import {OrdersStack, ProfileStack} from '../navigation/BottomTabNavigator'
 
@@ -38,6 +38,18 @@ const ProfileStackScreen = () => {
               component={ProfileScreen}
               options={{
                   headerTitle: 'My account',
+                //    headerRight:() => (
+                //        <Text style={{ marginRight: 30 }} onPress={() => }>
+                //            Logout
+                //        </Text> 
+                //    ) 
+              }}
+          />
+          <ProfileStack.Screen
+              name="PassEditProfile"
+              component={PassEditProfile}
+              options={{
+                  headerTitle: 'Confirm your password',
                 //    headerRight:() => (
                 //        <Text style={{ marginRight: 30 }} onPress={() => }>
                 //            Logout
