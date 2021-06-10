@@ -71,18 +71,7 @@ const OrdersStackScreen = () => {
       </OrdersStack.Navigator>
     )
 } 
-const EditProfileStackScreen = () => {
-    return(
-        <ProfileEditStack.Navigator>
-          <ProfileEditStack.Screen
-              name="ProfileEdit"
-              component={ProfileEditScreen}
-              options={{ headerTitle: 'Edit your profile'}}
-              />
-              {/* Restantes screens dentro do orders  */}
-      </ProfileEditStack.Navigator>
-    )
-} 
+
 
 const ProfileStackScreen = () => {
     return(
@@ -98,7 +87,7 @@ const ProfileStackScreen = () => {
                 name="ProfileEdit"
                 component={ProfileEditScreen}
                 options={{
-                    headerTitle: 'My account',
+                    headerTitle: 'Edit my account',
                   //    headerRight:() => (
                   //        <Text style={{ marginRight: 30 }} onPress={() => }>
                   //            Logout
