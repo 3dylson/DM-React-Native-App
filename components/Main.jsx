@@ -8,7 +8,7 @@ import {fetchUser, fetchUserOrders, clearData} from '../redux/actions/index'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import {OrdersScreen,ProfileScreen,PassEditProfile,ChatScreen,ManagerProfileScreen,OrderDetailsScreen} from '../screens';
+import {OrdersScreen,ProfileScreen,PassEditProfile,ChatScreen,ManagerProfileScreen,OrderDetailsScreen,CheckOutScreen} from '../screens';
 
 //import {OrdersStack, ProfileStack} from '../navigation/BottomTabNavigator'
 
@@ -24,8 +24,8 @@ const CheckOutStackScreen = () => {
         <CheckOutStack.Navigator>
           <CheckOutStack.Screen
               name="CheckOut"
-              component={ChatScreen}
-              options={{ headerTitle: 'Chat'}}
+              component={CheckOutScreen}
+              options={{ headerTitle: 'CheckOut'}}
               /> 
       </CheckOutStack.Navigator>
     )
