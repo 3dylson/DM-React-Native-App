@@ -8,7 +8,7 @@ import {fetchUser, fetchUserOrders, clearData} from '../redux/actions/index'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import {OrdersScreen,ProfileScreen,PassEditProfile} from '../screens';
+import {OrdersScreen,ProfileScreen,ProfileEditScreen,PassEditProfile} from '../screens';
 
 //import {OrdersStack, ProfileStack} from '../navigation/BottomTabNavigator'
 
@@ -16,6 +16,7 @@ import {OrdersScreen,ProfileScreen,PassEditProfile} from '../screens';
 const BottomTab = createBottomTabNavigator();
 const OrdersStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
+const ProfileEditStack = createStackNavigator();
 
 const OrdersStackScreen = () => {
     return(
@@ -27,6 +28,18 @@ const OrdersStackScreen = () => {
               />
               {/* Restantes screens dentro do orders  */}
       </OrdersStack.Navigator>
+    )
+} 
+const EditProfileStackScreen = () => {
+    return(
+        <ProfileEditStack.Navigator>
+          <ProfileEditStack.Screen
+              name="ProfileEdit"
+              component={ProfileEditScreen}
+              options={{ headerTitle: 'Edit your profile'}}
+              />
+              {/* Restantes screens dentro do orders  */}
+      </ProfileEditStack.Navigator>
     )
 } 
 
@@ -44,7 +57,21 @@ const ProfileStackScreen = () => {
                 //        </Text> 
                 //    ) 
               }}
+              
           />
+             <ProfileStack.Screen
+                name="ProfileEdit"
+                component={ProfileEditScreen}
+                options={{
+                    headerTitle: 'My account',
+                  //    headerRight:() => (
+                  //        <Text style={{ marginRight: 30 }} onPress={() => }>
+                  //            Logout
+                  //        </Text> 
+                  //    ) 
+                }}
+                
+            />
           <ProfileStack.Screen
               name="PassEditProfile"
               component={PassEditProfile}

@@ -11,7 +11,7 @@ function PassEditProfile(props) {
     const {currentUser} = props;
 
     const onFooterLinkPress = () => {
-        navigation.navigate('App')
+        props.navigation.navigate("Profile")
     }
 
     const onPassPress = () => {
@@ -32,15 +32,8 @@ function PassEditProfile(props) {
     
     firebase.auth().signInWithEmailAndPassword(currentUser.email,currentPassword)
         .then((resp) => {
-            const uid = resp.user.uid
-            const usersRef = firebase.firestore().collection('users')
-            usersRef.doc(uid).get()
-            .then(firestoreDocument => {
                     props.navigation.navigate("ProfileEdit")
-                
-                // const user = firestoreDocument.data()
-                // Navigate
-            })
+             
             .catch((error) => {
                 alert(error)
             });

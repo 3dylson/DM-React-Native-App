@@ -8,6 +8,8 @@ import styles from '../styles/signInStyle';
 export default function ProfileEditScreen() {
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
+    const [contact, setContact] = useState('')
+    const [company, setCompany] = useState('')
     const [password, setPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
 
@@ -36,18 +38,34 @@ export default function ProfileEditScreen() {
             }
 
         if(fullName.trim()){
-        user.updateProfile({
-            fullName:fullName
-        }).then(function() {
+            alert('Full name changed')
+        firebase.auth().currentUser.updateProfile(
+            {fullName:fullName}
+        ).then(function() {
           }).catch(function(error) {
             // An error happened.
           });}
-          if(fullName.trim()){
-          user.updateEmail(email).then(function() {
+          if(email.trim()){
+            alert('Email changed')
+          user.updateEmail({email:email}).then(function() {
             // Update successful.
           }).catch(function(error) {
             // An error happened.
-          });}}
+          });}
+          if(contact.trim()){
+            alert('Contact changed')
+          user.updateProfile({contact:contact}).then(function() {
+            // Update successful.
+          }).catch(function(error) {
+            // An error happened.
+          });} 
+          if(company.trim()){
+            alert('Company changed')
+          user.updateProfile({company:company}).then(function() {
+            // Update successful.
+          }).catch(function(error) {
+            // An error happened.
+          });}  }
 
 
     return (
@@ -76,6 +94,28 @@ export default function ProfileEditScreen() {
                     placeholderTextColor="#aaaaaa"
                     onChangeText={(text) => setEmail(text)}
                     value={email}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                        />
+                   
+               
+                        <TextInput
+                    style={styles.input}
+                    placeholder='Contact'
+                    placeholderTextColor="#aaaaaa"
+                    onChangeText={(text) => setContact(text)}
+                    value={contact}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                        />
+                   
+               
+                        <TextInput
+                    style={styles.input}
+                    placeholder='Company'
+                    placeholderTextColor="#aaaaaa"
+                    onChangeText={(text) => setCompany(text)}
+                    value={company}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                         />
