@@ -6,9 +6,13 @@ import React, { useEffect, useState } from "react";
 import { Text } from "react-native";
 import {signOut} from'../redux/actions/index'
 import { firebase } from '../firebase/config'
-//import { OrdersScreen, LoginScreen, ProfileScreen, SignInScreen } from '../screens';
+ 
+//********** This is not beeing used right now! Check Main.jsx instead on folder components *****************
 
+//import { OrdersScreen, LoginScreen, ProfileScreen, SignInScreen, PasscodeScreen } from '../screens';
 
+//import { HomeScreen, LoginScreen, ProfileScreen, SignInScreen, PasscodeScreen } from '../screens';
+// import PasscodeScreen from '../screens/PasscodeScreen';
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
