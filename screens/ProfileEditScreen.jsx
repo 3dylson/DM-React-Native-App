@@ -5,7 +5,7 @@ import { firebase } from '../firebase/config'
 import styles from '../styles/signInStyle';
 //import BcryptReactNative from 'bcrypt-react-native';
 
-export default function ProfileEditScreen({navigation}) {
+export default function ProfileEditScreen() {
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
