@@ -18,3 +18,17 @@ export function fetchUser(){
         })
     })
 }
+
+export function signOut(){
+    return((dispatch) => {
+        firebase.auth()
+        .signOut()
+        .then(() => {
+            dispatch({type: USER_STATE_CHANGE, currentUser: null})
+            alert('Logged out')
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+    })
+}

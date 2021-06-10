@@ -3,7 +3,7 @@ import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View, Button } f
 import styles from '../styles/homeStyle';
 import { firebase } from '../firebase/config'
 
-export default class HomeScreen extends Component {
+export default class OrdersScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -118,10 +118,18 @@ export default class HomeScreen extends Component {
         this.setState({EntityToUpdate: null}),
         this.setState({entityText: ''})
     }
+
+     logout = () => {
+        firebase.auth().signOut();
+    }
+
     render() {
     return (
         <View style={styles.container}>
-            <View style={styles.formContainer}>
+            <View style={styles.button}>
+                <Button
+                title="Logout Test"
+                onPress={() => this.logout()}/>
             {/* {entityToUpdate && 
                     <TouchableOpacity style={[styles.buttonCancel, { marginRight:10 }]} onPress={() => cancelUpdate()}>
                         <Text style={styles.buttonText}>Cancel</Text>

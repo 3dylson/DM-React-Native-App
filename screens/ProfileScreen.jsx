@@ -91,51 +91,52 @@ export default class ProfileScreen extends Component {
 
     }
 
-    componentDidMount() {
-        this.checkParams()
-    }
+    // componentDidMount() {
+    //     this.checkParams()
+    // }
 
     render() {
-        return (
-            <View style={{ flex: 1, padding: 5 }}>
-                {this.state.loaded == false ?
-                    (
-                        <Loading />
-                    )
-                    : (
-                        // loggedin
-                        <View style={{ flex: 1 }}>
-                            <View style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', paddingVertical: 10, marginTop: 20 }}>
-                                <Image
-                                    source={{ uri: this.state.photo }}
-                                    style={{ marginLeft: 10, width: 100, height: 100, borderRadius: 50 }}
-                                />
-                                <View style={{ marginRight: 10 }}>
-                                    <Text>{this.state.name}</Text>
-                                    <Text>{this.state.company}</Text>
-                                </View>
-                            </View>
-                            <View>
-                                <TouchableOpacity style={{ marginTop: 10, marginHorizontal: 40, paddingVertical: 15, borderRadius: 20, borderColor: 'grey', borderWidth: 1.5 }}>
-                                    <Text style={{ color: 'grey', textAlign: 'center' }}> {'Logout'} </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{ marginTop: 10, marginHorizontal: 40, paddingVertical: 15, borderRadius: 20, borderColor: 'grey', borderWidth: 1.5 }}>
-                                    <Text style={{ textAlign: 'center', color: 'grey' }}>{'Edit Profile'} </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    onPress={() => this.props.navigation.navigate("Upload")}
-                                    style={{ marginTop: 10, marginHorizontal: 40, paddingVertical: 25, backgroundColor: 'grey', borderRadius: 20, borderColor: 'grey', borderWidth: 1.5 }}>
-                                    <Text style={{ textAlign: 'center', color: '#fff' }}>{'Upload New +'} </Text>
-                                </TouchableOpacity>
-                            </View>
-                            {/* <View style={{ borderColor: '#555', borderWidth: 1 }} /> */}
-                            <View style={{ backgroundColor: 'green', flex: 1, justifyContent: 'center', alignItems: 'center', marginVertical: 5 }}>
-                                <Text>{"Loading Photos..."}</Text>
-                            </View>
-                        </View>
-                    )
-                }
-            </View>
+           return (
+        //     <View style={{ flex: 1, padding: 5 }}>
+        //         {this.state.loaded == false ?
+        //             (
+        //                 <Loading />
+        //             )
+        //             : (
+        //                 // loggedin
+        //                 <View style={{ flex: 1 }}>
+        //                     <View style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', paddingVertical: 10, marginTop: 20 }}>
+        //                         <Image
+        //                             source={{ uri: this.state.photo }}
+        //                             style={{ marginLeft: 10, width: 100, height: 100, borderRadius: 50 }}
+        //                         />
+        //                         <View style={{ marginRight: 10 }}>
+        //                             <Text>{this.state.name}</Text>
+        //                             <Text>{this.state.company}</Text>
+        //                         </View>
+        //                     </View>
+        //                     <View>
+        //                         <TouchableOpacity style={{ marginTop: 10, marginHorizontal: 40, paddingVertical: 15, borderRadius: 20, borderColor: 'grey', borderWidth: 1.5 }}>
+        //                             <Text style={{ color: 'grey', textAlign: 'center' }}> {'Logout'} </Text>
+        //                         </TouchableOpacity>
+        //                         <TouchableOpacity style={{ marginTop: 10, marginHorizontal: 40, paddingVertical: 15, borderRadius: 20, borderColor: 'grey', borderWidth: 1.5 }}>
+        //                             <Text style={{ textAlign: 'center', color: 'grey' }}>{'Edit Profile'} </Text>
+        //                         </TouchableOpacity>
+        //                         <TouchableOpacity
+        //                             onPress={() => this.props.navigation.navigate("Upload")}
+        //                             style={{ marginTop: 10, marginHorizontal: 40, paddingVertical: 25, backgroundColor: 'grey', borderRadius: 20, borderColor: 'grey', borderWidth: 1.5 }}>
+        //                             <Text style={{ textAlign: 'center', color: '#fff' }}>{'Upload New +'} </Text>
+        //                         </TouchableOpacity>
+        //                     </View>
+        //                     {/* <View style={{ borderColor: '#555', borderWidth: 1 }} /> */}
+        //                     <View style={{ backgroundColor: 'green', flex: 1, justifyContent: 'center', alignItems: 'center', marginVertical: 5 }}>
+        //                         <Text>{"Loading Photos..."}</Text>
+        //                     </View>
+        //                 </View>
+        //             )
+        //         }
+        //     </View>
+        <View></View> 
         )
     }
 }

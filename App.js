@@ -9,7 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {decode, encode} from 'base-64';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import LandingScreen from './components/auth/Landing'
+import LoginScreen from './components/auth/Login'
 import RegisterScreen from './components/auth/Register'
 import MainScreen from './components/Main'
 
@@ -61,8 +61,8 @@ export default class App extends Component {
       return (
         <SafeAreaProvider>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="Landing">
-              <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false}}/>
+            <Stack.Navigator initialRouteName="Login">
+              <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false}}/>
               <Stack.Screen name="Register" component={RegisterScreen}/>
             </Stack.Navigator>
           </NavigationContainer>
@@ -71,9 +71,16 @@ export default class App extends Component {
       );
     }
     return(
-      <Provider store={store}>
-        <MainScreen/>
-      </Provider>
+      <SafeAreaProvider>
+        <Provider store={store}>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Main">
+               <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: false}}/>              
+            </Stack.Navigator>
+          </NavigationContainer>
+          <StatusBar/>
+        </Provider>
+      </SafeAreaProvider>
     )
   }
 }

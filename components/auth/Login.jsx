@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, Button, TextInput, TouchableOpacity, Image } from 'react-native'
+import { View, Button, TextInput, TouchableOpacity, Image, Text } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from '../../styles/loginStyle'
-import logo from '../../assets/logo.png'
 import {firebase} from '../../firebase/config';
 
 export class Login extends Component {
@@ -17,6 +17,10 @@ export class Login extends Component {
 
     }
 
+    onFooterLinkPress = () => {
+        this.props.navigation.navigate('Register')
+    }
+
     onLoginPress(){
         const {email, password} = this.state; 
         
@@ -30,7 +34,7 @@ export class Login extends Component {
                     alert("User not register.")
                     return;
                 }
-                const user = firestoreDocument.data()
+                // const user = firestoreDocument.data()
                 // Navigate
             })
             .catch((error) => {
@@ -56,7 +60,7 @@ export class Login extends Component {
                     keyboardShouldPersistTaps="always">
                     <Image
                         style={styles.logo}
-                        source={require(logo)}
+                        source={require('../../assets/logo.png')}
                     />
                     <TextInput
                     style={styles.input}

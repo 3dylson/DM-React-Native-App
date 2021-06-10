@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, Button, TextInput, TouchableOpacity, Image } from 'react-native'
+import { View, Button, TextInput, TouchableOpacity, Image, Text } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from '../../styles/signInStyle'
-import logo from '../../assets/logo.png'
 import {Picker} from '@react-native-picker/picker';
 import {firebase} from '../../firebase/config';
 
@@ -19,8 +19,12 @@ export class Register extends Component {
             confirmPassword: ''
         }
 
-        this.onRegisterPress = this.onRegisterPress.bind(this)
+        //this.onRegisterPress = this.onRegisterPress.bind(this)
 
+    }
+
+    onFooterLinkPress = () => {
+        this.props.navigation.navigate('Login')
     }
 
     onRegisterPress(){
@@ -68,7 +72,7 @@ export class Register extends Component {
                     keyboardShouldPersistTaps="always">
                     <Image
                         style={styles.logo}
-                        source={require(logo)}
+                        source={require('../../assets/logo.png')}
                     />
                     <TextInput
                         style={styles.input}
