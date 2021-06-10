@@ -5,9 +5,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from "react";
 import { Text } from "react-native";
 import { firebase } from '../firebase/config'
-import { HomeScreen, LoginScreen, ProfileScreen, SignInScreen } from '../screens';
+import { HomeScreen, LoginScreen, ProfileScreen, SignInScreen, PasscodeScreen } from '../screens';
 import { AuthContext } from '../firebase/context'
-import PasscodeScreen from '../screens/PasscodeScreen';
+// import PasscodeScreen from '../screens/PasscodeScreen';
 
 const BottomTab = createBottomTabNavigator();
 
