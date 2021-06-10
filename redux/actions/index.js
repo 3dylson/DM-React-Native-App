@@ -1,6 +1,12 @@
-import {USER_ORDERS_STATE_CHANGE, USER_STATE_CHANGE} from '../constants/index'
+import {USER_ORDERS_STATE_CHANGE, USER_STATE_CHANGE, USERS_DATA_STATE_CHANGE, CLEAR_DATA} from '../constants/index'
 import {firebase} from '../../firebase/config'
 
+
+export function clearData() {
+    return ((dispatch) => {
+        dispatch({type: CLEAR_DATA})
+    })
+}
 
 export function fetchUser(){
     return((dispatch) => {
@@ -34,6 +40,32 @@ export function fetchUserOrders(){
             })
             dispatch({type: USER_ORDERS_STATE_CHANGE, orders})
         })
+    })
+}
+
+export function fetchUsersData(uid, getOrders) {
+    return ((dispatch, getState) => {
+        const found = getState().usersState.users.some(el => el.uid === uid);
+        if (!found) {
+            firebase.firestore()
+                .collection("users")
+                .doc(uid)
+                .get()
+                .then((snapshot) => {
+                    if (snapshot.exists) {
+                        let user = snapshot.data();
+                        user.uid = snapshot.id;
+
+                        dispatch({ type: USERS_DATA_STATE_CHANGE, user });
+                    }
+                    else {
+                        console.log('does not exist')
+                    }
+                })
+                if(getOrders){
+                    dispatch(fetchUserOrders);
+                }
+        }
     })
 }
 

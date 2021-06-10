@@ -5,6 +5,16 @@ export default StyleSheet.create({
         flex: 1,
         alignItems: 'center'
     },
+    containerInfo: {
+        margin: 20
+    },
+    containerGallery: {
+        flex: 1
+    },
+    containerImage: {
+        flex: 1 / 3
+
+    },
     formContainer: {
         flexDirection: 'row',
         height: 80,
