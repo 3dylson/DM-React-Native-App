@@ -47,12 +47,6 @@ export class Register extends Component {
             };
             const usersRef = firebase.firestore().collection('users')
             usersRef.doc(uid).set(data)
-            .then(() => {
-                // Navigate
-            })
-            .catch((error) => {
-                alert(error)
-            });
         })
         .catch((error) => {
             let errorCode =  error.code;

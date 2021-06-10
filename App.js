@@ -11,10 +11,18 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import LandingScreen from './components/auth/Landing'
 import RegisterScreen from './components/auth/Register'
+import MainScreen from './components/Main'
+
+import{Provider} from 'react-redux'
+import {createStore, applyMiddleware} from 'redux'
+import rootReducer from './redux/reducers'
+import thunk from 'redux-thunk'
 
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
  
+
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 const Stack = createStackNavigator();
 
@@ -63,11 +71,9 @@ export default class App extends Component {
       );
     }
     return(
-      <View>
-        <Text>
-          User is logged!
-        </Text>
-      </View>
+      <Provider store={store}>
+        <MainScreen/>
+      </Provider>
     )
   }
 }
