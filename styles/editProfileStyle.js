@@ -30,7 +30,7 @@ export default StyleSheet.create({
         margin: 30
     },
     input: {
-        height: '50%',
+        height: '10',
         width:'100%',
         borderRadius: 5,
         overflow: 'hidden',
